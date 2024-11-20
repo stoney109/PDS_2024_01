@@ -16,12 +16,22 @@ def generate_wordcloud(texts, title, font_path='C:/Windows/Fonts/malgun.ttf', ba
     # 텍스트 합치기
     combined_text = ' '.join(texts)
 
+    # 빈도수가 3 이상인 모든 견종을 시각화 해서 보고 싶을 때
     # 단어 빈도수 계산 및 빈도수 3 이상 단어 필터링
     word_counts = Counter(combined_text.split())
     filtered_text = ' '.join([word for word, count in word_counts.items() if count > 3])
 
     # 워드클라우드 생성
     wordcloud = WordCloud(font_path=font_path, background_color=background_color).generate(filtered_text)
+
+    '''
+    # 상위 견종만 보고 싶을 때 
+    # 단어 빈도수 계산 및 빈도수 상위 20개 데이터
+    word_counts = Counter(combined_text.split())
+    top_10_words = dict(word_counts.most_common(20))
+    wordcloud = WordCloud(font_path=font_path, background_color=background_color).generate_from_frequencies(
+        top_10_words)
+    '''
 
     return wordcloud
 
@@ -62,21 +72,21 @@ if __name__ == "__main__":
     unadopted_data = read_csv_column(unadopted_csv_path, column_name)
 
     # 워드클라우드 생성
-    adopted_wordcloud = generate_wordcloud(adopted_data, "Adopted_speices")
+    adopted_wordcloud = generate_wordcloud(adopted_data,"Adopted_speices")
     unadopted_wordcloud = generate_wordcloud(unadopted_data, "Unadopted_speices")
 
     # 두 워드클라우드를 하나의 화면에 표시
     plt.figure(figsize=(16, 8))
 
     plt.subplot(1, 2, 1)  # 첫 번째 워드클라우드
-    plt.imshow(adopted_wordcloud, interpolation='bilinear')
-    plt.title("Adopted", fontsize=16)
-    plt.axis('off')
+    plt.imshow(adopted_wordcloud, interpolation='bilinear') # 첫 번째 워드클라우드 이미지를 표시
+    plt.title("Adopted_speices", fontsize=16)
+    plt.axis('off') # 축과 눈금 제거
 
     plt.subplot(1, 2, 2)  # 두 번째 워드클라우드
-    plt.imshow(unadopted_wordcloud, interpolation='bilinear')
-    plt.title("Unadopted", fontsize=16)
-    plt.axis('off')
+    plt.imshow(unadopted_wordcloud, interpolation='bilinear') # 두 번째 워드클라우드 이미지를 표시
+    plt.title("Unadopted_speices", fontsize=16)
+    plt.axis('off') # 축과 눈금 제거
 
     plt.tight_layout()
     plt.show()
