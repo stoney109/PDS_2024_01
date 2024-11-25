@@ -17,7 +17,7 @@ def preprocess_color(dataframe):
         r'？p|LG|APT|IC|cm|KG|Mix견|색f|도베르만|말티즈|시츄|푸들|믹스견|강아지|고등어|온순함|진도|풍산|암컷|수컷|순함|혼재|미상|조금|보라|분홍|핑크|로즈|견|빛|핵|객|섹|샛|새|\d+',
         '', regex=True)
 
-    # '혼합' 또는 '믹스' 단일로 있는 경우 'Mix', 그렇지 않으면 제거(eg. 갈색 검정 믹스 -> 갈색 검정)
+    # '혼합' 또는 '믹스' 단일로 있는 경우 'Mix', 그렇지 않으면 제거(e.g. 갈색 검정 믹스 -> 갈색 검정)
     dataframe['색상'] = dataframe['색상'].apply(
         lambda x: 'Mix' if re.fullmatch(r'(혼합|믹스)', x) else re.sub(r'(혼합|믹스)', '', x))
 

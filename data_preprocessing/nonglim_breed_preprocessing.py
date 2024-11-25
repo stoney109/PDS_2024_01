@@ -249,7 +249,7 @@ def separate_detail_breed(combination_data, breed_file):
         # '세부견종'에서 가장 뒤에 있는 콤마(,) 제거
         dataframe['세부견종'] = dataframe['세부견종'].str.rstrip(',')
 
-        # 일부 '믹스'인 경우에 대한 처리 (eg. 보더콜리 믹스 >> 믹스 / 보더콜리)
+        # 일부 '믹스'인 경우에 대한 처리 (e.g. 보더콜리 믹스 >> 믹스 / 보더콜리)
         breed_replacements = {
             '^핏불테리어, 테리어$': '핏불테리어',
             '보더콜리, 콜리': '보더콜리',
