@@ -26,4 +26,4 @@ unadopted_data.to_csv(output_csv_file_unadopted, encoding='utf-8-sig', index=Fal
 num_adopted = len(adopted_data)
 num_unadopted = len(unadopted_data)
 print(f'입양된 강아지의 수: {num_adopted}개')
-print(f'안락사된 강아지의 수: {num_unadopted}개')
+print(f'입양되지 않은 강아지의 수: {num_unadopted}개')
