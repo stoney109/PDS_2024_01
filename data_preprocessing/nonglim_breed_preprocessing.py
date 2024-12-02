@@ -284,9 +284,9 @@ def separate_detail_breed(combination_data, breed_file):
 
 
 # CSV 파일 경로
-input_csv_file = '../preprocessing_csv_files/nonglim_color_preprocessing.csv'
-output_csv_file = '../preprocessing_csv_files/nonglim_breed_preprocessing.csv'
-breed_csv_file = '../../resource/crawing_data/breed.csv'
+input_csv_file = 'preprocessing_csv_files/nonglim_color_preprocessing.csv'
+output_csv_file = 'preprocessing_csv_files/nonglim_breed_preprocessing.csv'
+breed_csv_file = '../resource/crawing_data/breed.csv'
 
 # CSV 파일 읽기
 data = pd.read_csv(input_csv_file)

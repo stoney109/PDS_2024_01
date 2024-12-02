@@ -111,8 +111,8 @@ def preprocess_dataframe(dataframe):
 
 
 # CSV 파일 경로 설정
-input_csv_file = '../../resource/crawing_data/nonglim_crawling_20231116.csv'
-output_csv_file = '../preprocessing_csv_files/nonglim_base_preprocessing.csv'
+input_csv_file = '../resource/crawing_data/nonglim_crawling_20231116.csv'
+output_csv_file = 'preprocessing_csv_files/nonglim_base_preprocessing.csv'
 
 # CSV 파일 읽기 (ID와 접수일 열의 데이터 타입을 object로 설정)
 data = pd.read_csv(input_csv_file, dtype={'ID': 'object', '접수일': 'object'})

@@ -31,8 +31,8 @@ def preprocess_weight(dataframe):
 
 
 # CSV 파일 경로
-input_csv_file = '../preprocessing_csv_files/nonglim_feature_preprocessing.csv'
-output_csv_file = '../preprocessing_csv_files/nonglim_weight_preprocessing.csv'
+input_csv_file = 'preprocessing_csv_files/nonglim_feature_preprocessing.csv'
+output_csv_file = 'preprocessing_csv_files/nonglim_weight_preprocessing.csv'
 
 # CSV 파일 읽기
 data = pd.read_csv(input_csv_file)

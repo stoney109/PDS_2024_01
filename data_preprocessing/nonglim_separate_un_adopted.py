@@ -1,9 +1,9 @@
 import pandas as pd
 
 # CSV 파일 경로 설정
-input_csv_file = '../preprocessing_csv_files/nonglim_weight_preprocessing.csv'
-output_csv_file_adopted = '../preprocessing_csv_files/nonglim_adopted.csv'
-output_csv_file_unadopted = '../preprocessing_csv_files/nonglim_unadopted.csv'
+input_csv_file = 'preprocessing_csv_files/nonglim_weight_preprocessing.csv'
+output_csv_file_adopted = 'preprocessing_csv_files/nonglim_adopted.csv'
+output_csv_file_unadopted = 'preprocessing_csv_files/nonglim_unadopted.csv'
 
 # CSV 파일 읽기 (ID와 접수일 열의 데이터 타입을 object로 설정)
 data = pd.read_csv(input_csv_file, dtype={'접수일': 'object', '견종': 'object'})

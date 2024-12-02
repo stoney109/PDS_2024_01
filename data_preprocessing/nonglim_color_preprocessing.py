@@ -104,8 +104,8 @@ def preprocess_color(dataframe):
 
 
 # CSV 파일 경로
-input_csv_file = '../preprocessing_csv_files/nonglim_birth_preprocessing.csv'
-output_csv_file = '../preprocessing_csv_files/nonglim_color_preprocessing.csv'
+input_csv_file = 'preprocessing_csv_files/nonglim_birth_preprocessing.csv'
+output_csv_file = 'preprocessing_csv_files/nonglim_color_preprocessing.csv'
 
 # CSV 파일 읽기
 data = pd.read_csv(input_csv_file)

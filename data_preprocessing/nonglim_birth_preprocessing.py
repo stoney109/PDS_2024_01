@@ -35,8 +35,8 @@ def preprocess_birth(dataframe):
     return dataframe
 
 # CSV 파일 경로
-input_csv_file = '../preprocessing_csv_files/nonglim_base_preprocessing.csv'
-output_csv_file = '../preprocessing_csv_files/nonglim_birth_preprocessing.csv'
+input_csv_file = 'preprocessing_csv_files/nonglim_base_preprocessing.csv'
+output_csv_file = 'preprocessing_csv_files/nonglim_birth_preprocessing.csv'
 
 # CSV 파일 읽기
 data = pd.read_csv(input_csv_file)

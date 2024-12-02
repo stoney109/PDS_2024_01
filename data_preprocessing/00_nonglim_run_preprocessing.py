@@ -8,12 +8,12 @@ import subprocess
 
 # 농림축산식품부 API 데이터를 전처리하기 위한 단계별 스크립트 파일 경로
 scripts = [
-    "nonglim_preprocess_code/nonglim_basic_preprocessing.py",        # 1단계: 기본 전처리
-    "nonglim_preprocess_code/nonglim_birth_preprocessing.py",        # 2단계: '출생연도' 전처리
-    "nonglim_preprocess_code/nonglim_color_preprocessing.py",        # 3단계: '색상' 전처리
-    "nonglim_preprocess_code/nonglim_breed_preprocessing.py",        # 4단계: '견종' 전처리
-    "nonglim_preprocess_code/nonglim_feature_preprocessing.py",      # 5단계: '특징' 전처리
-    "nonglim_preprocess_code/nonglim_weight_preprocessing.py"        # 6단계: '체중' 전처리
+    "nonglim_basic_preprocessing.py",        # 1단계: 기본 전처리
+    "nonglim_birth_preprocessing.py",        # 2단계: '출생연도' 전처리
+    "nonglim_color_preprocessing.py",        # 3단계: '색상' 전처리
+    "nonglim_breed_preprocessing.py",        # 4단계: '견종' 전처리
+    "nonglim_feature_preprocessing.py",      # 5단계: '특징' 전처리
+    "nonglim_weight_preprocessing.py"        # 6단계: '체중' 전처리
 ]
 
 
