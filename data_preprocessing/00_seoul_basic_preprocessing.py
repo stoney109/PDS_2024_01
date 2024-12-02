@@ -7,19 +7,25 @@ from datetime import datetime, timedelta
 
 ◆ 해당 파일에서 진행하는 데이터 전처리는 다음과 같습니다. ◆
 
-1. 출생연도 데이터 전처리 : 날짜 형식을 YYYY.MM 형태로 통일
+1. 출생연도 데이터 전처리:
+   1) '들어온 날짜'와 '나이' 데이터를 기반으로 출생 연도를 추정하여 YYYY.MM 형식으로 통일.
+   2) 데이터 형식이 맞지 않거나 계산이 불가능한 경우 'Unknown'으로 처리.
 
 2. 보호 장소 데이터 정리 : 보호장소 형식을 서울특별시 + {지역명} 형태로 통일
 
 3. 견종 및 세부견종 분리
 
-4. 특징 데이터 추출 : 특징 열에서 특정 키워드를 기준으로 불필요한 정보를 제거 후 추출
+4. 특징 데이터 정리 및 추출:
+   - '특징' 컬럼에서 HTML 태그, 공백 등을 제거하여 텍스트를 정리.
+   - 특정 키워드(예: '기다립니다.')를 기준으로 필요한 텍스트만 남김.
 
 5. 색상 데이터 추가 : '특징' 컬럼에서 특정 표현을 통해 추출, 알 수 없음은 'Unknown'으로 처리
 
 6. 입양 여부 추가 : 서울동물복지지원센터 입양대기동물 현황의 api 데이터이므로, 모든 데이터에 입양여부를 N로 설정
 
-7. 다른 데이터와 컬럼명 및 형태 통일
+7. 중성화 여부 추가 : 중성화 상태를 알 수 없는 경우 모든 데이터를 'U'(Unknown)로 설정
+
+8. 다른 데이터와 컬럼명 및 형태 통일
 
 '''
 
@@ -32,7 +38,7 @@ output_csv_file = 'preprocessing_csv_files/seoul_base_preprocessing.csv'
 seoul_api_data = pd.read_csv(input_csv_file)
 
 
-# # ID 컬럼에서 영어 문자가 포함된 행 삭제 : 해당 값을 확인 했을 때 오류 행으로 확인됨
+# # ID 컬럼에서 영어 문자가 포함된 행 삭제 : 해당 값을 확인 했을 때 오류 행으로 확인됨 >> 제거
 seoul_api_data = seoul_api_data[~seoul_api_data['ID'].apply(lambda x: bool(re.search(r'[a-zA-Z]', str(x))))]
 
 
@@ -40,7 +46,7 @@ seoul_api_data = seoul_api_data[~seoul_api_data['ID'].apply(lambda x: bool(re.se
 seoul_api_data = seoul_api_data[seoul_api_data['종'] == 'DOG'].reset_index(drop=True)
 
 
-# # '종' 컬럼의 'DOG' 값을 '믹스'로 변경 : 논의 필요, 알 수 없는 견종에서 믹스가 가장 많아 해당 전처리를 수행했던 것으로 추정
+# '종' 컬럼의 'DOG' 값을 '믹스'로 변경 : 논의 필요, 알 수 없는 견종에 대해 '믹스'가 가장 많아 해당 전처리를 수행했던 것으로 추정
 seoul_api_data['종'] = seoul_api_data['종'].replace('DOG', '믹스')
 
 
