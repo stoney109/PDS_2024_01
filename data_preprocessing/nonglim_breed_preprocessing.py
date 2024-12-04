@@ -294,6 +294,9 @@ data = pd.read_csv(input_csv_file)
 # 견종 전처리 함수 수행
 processed_data = preprocess_breed(data)
 
+# 주석처리를 해제하면 견종 api 데이터가 수집됩니다.
+# 실행은 원활히 되는 것을 확인했으나, api가 실시간으로 수정되기 때문에 항상성 유지를 위하여 주석처리하였습니다.
+# 주석처리 상태로 실행시, 현재 경로에 존재하는 breed.csv 파일을 활용하여 전처리합니다.
 # # 견종 API 데이터 수집 수행
 # api_breed_data = fetch_dog_breed_from_api()
 #

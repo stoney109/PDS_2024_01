@@ -4,7 +4,7 @@ import re
 
 def preprocess_dataframe(dataframe):
     """
-    데이터프레임의 주요 컬럼('견종', '체중', '보호장소', '특징') 데이터를 1차 전처리하는 함수
+    데이터프레임의 주요 컬럼('견종', '체중', '보호장소', '특징', '입양여부') 데이터를 기초 전처리하는 함수
 
     Parameters:
         dataframe (pd.DataFrame): 전처리할 데이터프레임
@@ -98,6 +98,28 @@ def preprocess_dataframe(dataframe):
 
         return text
 
+    def update_adoption_status(status):
+        """
+        '입양여부' 상태를 기준으로 값 갱신 및 필요 없는 데이터를 필터링하는 함수
+
+        Parameters:
+            status (str): '입양여부' 데이터
+
+        Returns:
+            str or None: 갱신된 입양여부 (Y, N) 또는 None
+        """
+        if status in ['종료(입양)', '종료(기증)', '종료(반환)']:
+            # 입양이되거나, 기증이 되었거나, 주인이 다시 찾아간 경우
+            return 'Y'
+        elif status in ['보호중', '종료(안락사)', '종료(자연사)']:
+            # 안락사, 자연사 및 보호중 동물인 경우
+            return 'N'
+        elif status in ['종료(기타)', '종료(방사)']:
+            # 전체 데이터(약 20만건) 중 각각 58건, 51건으로 보호 종료 사유를 알 수 없어 드랍
+            return None
+        else:
+            return None  # 알 수 없는 상태
+
     # '특징' 열 전처리 적용
     dataframe['특징'] = dataframe['특징'].apply(clean_feature)
 
@@ -106,6 +128,12 @@ def preprocess_dataframe(dataframe):
 
     # '특징' 열에서 의미 없는 데이터 제거
     dataframe['특징'] = dataframe['특징'].replace(['번', '무', '없음', '-', '.', '..', '', ' '], '')
+
+    # '입양여부' 컬럼 업데이트
+    dataframe['입양여부'] = dataframe['입양여부'].apply(update_adoption_status)
+
+    # '입양여부'가 None인 행 제거
+    dataframe = dataframe[dataframe['입양여부'].notna()].copy()
 
     return dataframe
 

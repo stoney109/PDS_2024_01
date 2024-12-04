@@ -3,8 +3,8 @@ from konlpy.tag import Okt
 from hanspell import spell_checker
 import re
 import time
-from multiprocessing import Pool, cpu_count
 from tqdm import tqdm
+from multiprocessing import Pool, cpu_count
 
 
 r'''
@@ -32,6 +32,34 @@ JAVA 설치 후 환경 변수를 설정하세요:
 
 감사합니다.
 '''
+
+
+# 데이터 로드 및 저장 파일 이름 설정 함수 : 입양 Y/N 각 CSV 파일을 전처리한 후 저장
+def process_file(input_file, output_file):
+    """
+        전처리할 CSV 파일(input_file)을 로드한 뒤 데이터 전처리를 수행하고,
+        결과를 지정된 경로(output_file)에 저장하는 함수
+
+        Parameters:
+            input_file (str): 입력 CSV 파일 경로
+            output_file (str): 전처리된 데이터를 저장할 출력 CSV 파일 경로
+    """
+    # 데이터 로드
+    print(f"파일 전처리 시작: {input_file}")  # 시작 알림
+    data = pd.read_csv(input_file, encoding='euc-kr', low_memory=False)
+
+    # 병렬 처리 진행
+    with Pool(cpu_count()) as pool:
+        # 데이터 양이 많아 진행 상황을 실시간으로 확인하기 위해 tqdm으로 진행률 표시
+        results = list(tqdm(pool.imap(process_row, data['특징']), total=len(data)))
+
+    # 전처리 결과 분리 및 병합
+    # 각 열에 대해 'cleaned_text', 'corrected_text', 'filtered_text' 데이터를 저장
+    data['cleaned_text'], data['corrected_text'], data['filtered_text'] = zip(*results)
+
+    # 전처리 결과를 CSV 파일로 저장
+    data.to_csv(output_file, index=False, encoding='utf-8-sig')
+    print(f"전처리 완료 파일 저장 경로: {output_file}\n")    # 완료 알림
 
 
 # 형태소 분석기 초기화
@@ -108,16 +136,16 @@ def process_row(row):
     return cleaned, corrected, filtered
 
 
-# 데이터 로드
-data = pd.read_csv("../resource/final_adopted_data.csv", encoding='euc-kr', low_memory=False)
-
 # 병렬 처리 시작
 if __name__ == "__main__":
-    with Pool(cpu_count()) as pool:
-        results = list(tqdm(pool.imap(process_row, data['특징']), total=len(data)))
+    # 특성 전처리 대상 파일 경로, 전처리 후 저장 경로 설정
+    files_to_process = [
+        # 입양 Y 유기견 데이터
+        ("../resource/final_adopted_data.csv", "preprocessing_csv_files/trait_adopted_preprocessing.csv"),
+        # 입양 N 유기견 데이터
+        ("../resource/final_unadopted_data.csv", "preprocessing_csv_files/trait_unadopted_preprocessing.csv")
+    ]
 
-    # 결과 분리
-    data['cleaned_text'], data['corrected_text'], data['filtered_text'] = zip(*results)
-
-    # 전처리 결과 저장
-    data.to_csv("preprocessing_csv_files/trait_preprocessing.csv", index=False, encoding='utf-8-sig')
+    # 각 파일 처리
+    for input_files, output_files in files_to_process:
+        process_file(input_files, output_files)
