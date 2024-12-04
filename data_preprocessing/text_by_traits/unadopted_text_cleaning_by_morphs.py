@@ -1,13 +1,12 @@
 import csv
-import pandas as pd
 from konlpy.tag import Okt
 
-# CSV 파일의 인코딩을 euc-kr에서 utf-8로 변환하는 함수
-def convert_csv_encoding(input_file_path, output_file_path):
-    # euc-kr로 파일 읽기
-    df = pd.read_csv(input_file_path, encoding='euc-kr', low_memory=False)
-    # utf-8로 파일 재저장
-    df.to_csv(output_file_path, index=False, encoding='utf-8')
+# # 혹시 모를 인코딩이 통일되지 않을 때를 대비하여 CSV 파일의 인코딩을 euc-kr에서 utf-8로 변환하는 함수
+# def convert_csv_encoding(input_file_path, output_file_path):
+#     # euc-kr로 파일 읽기
+#     df = pd.read_csv(input_file_path, encoding='euc-kr', low_memory=False)
+#     # utf-8로 파일 재저장
+#     df.to_csv(output_file_path, index=False, encoding='utf-8')
 
 # 주어진 텍스트에서 불용어를 제거하고 중요한 형태소만 추출하는 함수
 def extract_important_morphs(text, stopwords):
@@ -57,17 +56,21 @@ def save_to_csv(data, output_file_path):
             # 형태소 리스트를 공백으로 연결하여 한 문자열로 변환
             writer.writerow([name, ' '.join(traits)])
 
-# CSV 파일 경로 설정
-original_csv_file_path = '../../resource/final_unadopted_data.csv'
-utf8_csv_file_path = '../../resource/final_unadopted_data_utf8.csv'
-
-# 원본 파일을 euc-kr에서 utf-8로 변환
-convert_csv_encoding(original_csv_file_path, utf8_csv_file_path)
+##인코딩 함수 연관부분(위에 주석 풀면서 같이 풀어야 함)
+# # CSV 파일 경로 설정
+# original_csv_file_path = '../../resource/final_adopted_data.csv'
+# utf8_csv_file_path = '../../resource/final_adopted_data_utf8.csv'
+#
+# # 원본 파일을 euc-kr에서 utf-8로 변환
+# convert_csv_encoding(original_csv_file_path, utf8_csv_file_path)
 
 # CSV 파일에서 이름과 특성 데이터 읽어오기
+
+csv_file_path = '../../data_preprocessing/preprocessing_csv_files/trait_unadopted_preprocessing.csv'
+
 name_column_index = 0  # 이름이 있는 열의 인덱스
-trait_column_index = 11  # 특성 데이터가 있는 열의 인덱스
-names_a, traits_b = read_csv(utf8_csv_file_path, name_column_index, trait_column_index)
+trait_column_index = 15  # 특성 데이터가 있는 열의 인덱스
+names_a, traits_b = read_csv(csv_file_path, name_column_index, trait_column_index)
 
 # 불용어 리스트 설정 (분석에서 제외할 단어들)
 stopwords = [
@@ -77,7 +80,34 @@ stopwords = [
     '와', '있습니다', '있어요', '.', '(', '요', '합니다', '듯', '중', '되어', '또는', '(', '고',
     '화', '.)', '라', '인', ')', '할', '과도', '라서', '^^', '때', '이며', '하지만', '아', '곳',
     '더', '하면', '면', '이나', '부터', '때문', 'kg', '했습니다', '이지만', '했어요', '또한',
-    '엉', '있었어요', '해주세요', '있어', '했으며', '됩니다'
+    '엉', '있었어요', '해주세요', '있어', '했으며', '됩니다','있다', '없다', '되다', '하다', '이다', '보임', '상태',
+    '한', '그', '및', '하는', '하며', '부터', '까지',
+    '것', '이런', '저런', '때문에', '위해', '가장',
+    '매우', '모든', '다양한', '특히', '많은', '저',
+    '그것', '위치', '크기', '종류', '상태', '등등', '따른', '대해','추정','다',
+
+    # 색상 관련 단어
+    '색상', '색깔', '색',
+    '빨강', '빨간색', '빨간', '빨갛다',
+    '주황', '주황색', '주홍색', '주홍',
+    '노랑', '노란색', '노란', '노랗다',
+    '초록', '초록색', '초록빛', '연두', '연두색', '초록빛', '초록하다',
+    '파랑', '파란색', '파란', '하늘색', '남색', '청색', '파랗다', '푸르다',
+    '보라', '보라색', '자주', '자주색',
+    '흰색', '하얀', '하얀색', '백색', '하얗다',
+    '검정', '검은', '검정색', '까만', '까만색', '검다',
+    '회색', '회빛',
+    '갈색', '브라운', '갈색빛',
+    '분홍', '분홍색', '핑크',
+    '금색', '황금색', '황색', '금빛',
+    '은색', '은빛',
+    '다홍', '다홍색',
+    '아이보리', '아이보리색',
+    '베이지', '베이지색',
+    '민트', '민트색',
+    '초코색', '초콜릿색',
+    '청록색', '카키', '카키색',
+    '와인', '와인색'
 ]
 
 # 각각의 강아지 특성을 형태소 단위로 토큰화하고 중요한 형태소 추출

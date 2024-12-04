@@ -23,7 +23,7 @@ def generate_wordcloud(text):
     word_counts = Counter(morphs)
 
     # 빈도수가 1 이상인 단어들만 선택하여 문자열로 결합
-    joined_text = ' '.join([word for word, count in word_counts.items() if count > 1])
+    joined_text = ' '.join([word for word, count in word_counts.items() if count > 3])
 
     # 워드클라우드 생성 (폰트 경로를 시스템의 한글 폰트로 설정)
     wordcloud = WordCloud(
