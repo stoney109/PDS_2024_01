@@ -15,6 +15,21 @@ def preprocess_birth(dataframe):
     # '(년생)'값 제거
     dataframe['출생연도'] = dataframe['출생연도'].str.replace(r'\(년생\)', '', regex=True)
 
+    # 두 자릿수 또는 한 자릿수 오류 처리
+    def adjust_year_format(year):
+        year = year.strip()  # 앞뒤 공백 제거
+        if year.isdigit():  # 숫자인 경우
+            if len(year) == 2:  # 두 자릿수라면 앞에 20을 붙임
+                return '20' + year
+            elif len(year) == 1:  # 한 자릿수라면
+                if year in ['1', '2']:  # 1 또는 2라면 202를 붙임
+                    return '202' + year
+                else:  # 그 외의 숫자라면 201을 붙임
+                    return '201' + year
+        return year
+
+    dataframe['출생연도'] = dataframe['출생연도'].apply(adjust_year_format)
+
     # 출생연도가 '60일미만'인 경우, 접수일 기준 2달 전 날짜로 업데이트
     for idx, row in dataframe.iterrows():
         if '60일미만' in row['출생연도']:
