@@ -147,7 +147,7 @@ for i in range(len(data_cafe_craw)):
         data_cafe_craw.at[i, '견종'] = sample[index_1:index_2]
     elif index_2 != -1 and index_3 != -1:
         data_cafe_craw.at[i, '견종'] = sample[index_3:index_2]
-    elif index_3 != -1:  # Check if '견종' is present before extracting
+    elif index_3 != -1:
         data_cafe_craw.at[i, '견종'] = sample[index_3:index_2]
     elif index_2 != -1 and index_5 != -1:
         data_cafe_craw.at[i, '견종'] = sample[index_5:index_2]
@@ -358,8 +358,24 @@ def extract_sub_breeds(row):
     else:
         return sample, sample
 
+
 # '견종'과 '세부견종' 분리 적용
 data_cafe_craw[['견종', '세부견종']] = data_cafe_craw.apply(lambda row: pd.Series(extract_sub_breeds(row)), axis=1)
+
+
+# '견종' 컬럼의 오타 수정을 위한 전처리
+data_cafe_craw['견종'] = data_cafe_craw['견종'].str.replace(r'\s+', '', regex=True)
+
+# '견종' 컬럼의 오타 수정 및 형태 통일
+cleaned_breeds = {
+    '폼': '폼피츠',
+    '보스턴 테이어': '보스턴테리어',
+    '포메라이안': '포메라니안',
+    '포메라이니안': '포메라니안',
+    '시추': '시츄',
+    '미니핀': '미니어쳐핀셔',
+}
+data_cafe_craw['견종'] = data_cafe_craw['견종'].replace(cleaned_breeds)
 
 
 # '세부견종'에서 불필요한 문자 제거 및 정리
@@ -375,18 +391,26 @@ data_cafe_craw['세부견종'] = (
 # '세부견종'의 일부 데이터를 통일된 이름으로 대체
 replace_dict = {
     '폼': '폼피츠',
-    '푸숑': '푸들, 비숑프리제',
-    '폼피츠': '포메라니안, 스피츠',
-    '보스턴테이어': '보스턴테리어',
+    '보스턴 테이어': '보스턴테리어',
     '포메라이안': '포메라니안',
     '포메라이니안': '포메라니안',
     '시추': '시츄',
-    '말티즈,시추': '말티즈,시츄',
-    '비숑,푸들': '비숑프리제,푸들',
-    '포메라니안,스피츠': '스피츠,포메라니안',
-    '미니핀': '미니어쳐 핀셔',
+    '미니핀': '미니어쳐핀셔',
+    '푸숑': '비숑프리제, 푸들',
+    '폼피츠,페키니즈': '포메라니안, 페키니즈',
+    '폼피츠|포메라니안,스피츠': '포메라니안, 스피츠',
+    '말티즈,시추': '말티즈, 시츄',
+    '말티즈,푸들': '말티즈, 푸들',
+    '비숑,푸들': '비숑프리제, 푸들',
+    '코카스파니엘,푸들': '코카스파니엘, 푸들'
 }
 data_cafe_craw['세부견종'] = data_cafe_craw['세부견종'].replace(replace_dict)
+
+# '세부견종' 컬럼의 값이 NaN, 공백, 또는 빈 문자열일 경우 NaN으로 변환
+data_cafe_craw['세부견종'] = data_cafe_craw['세부견종'].replace(r'^\s*$', pd.NA, regex=True)
+
+# '견종'이 '믹스'이고 '세부견종'이 비어있다면 '세부견종'을 '믹스'로 채우기
+data_cafe_craw.loc[(data_cafe_craw['견종'] == '믹스') & (data_cafe_craw['세부견종'].isnull()), '세부견종'] = '믹스'
 
 
 # '성격 및 기타 특징'컬럼 에서 색상 정보 추출
@@ -425,8 +449,9 @@ for i in range(len(data_cafe_craw)):
         data_cafe_craw.at[i, '색상'] = 'White'
 
 
-# 카페 게시글에서는 체중에 대한 정확한 수치를 확인 불가하여 None 처리
-data_cafe_craw['체중'] = None
+# 카페 게시글에서는 체중에 대한 정확한 수치를 확인 불가
+# TODO : 논의 필요, 평균값을 해치지 않기 위해 7.16 kg으로 값을 할당 (총 231개의 데이터)
+data_cafe_craw['체중'] = 7.16
 
 
 # 모든 문자열 컬럼에 대해 strip 적용
@@ -446,3 +471,8 @@ data_cafe_craw = data_cafe_craw[columns_order]
 
 # 최종 데이터프레임을 CSV로 저장
 data_cafe_craw.to_csv(output_csv_file, encoding='utf-8-sig', index=False)
+
+
+# 처리된 요소 수 출력
+num_elements = len(data_cafe_craw)
+print(f'처리된 데이터의 수: {num_elements}개')

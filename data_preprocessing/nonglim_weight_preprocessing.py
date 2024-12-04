@@ -30,6 +30,26 @@ def preprocess_weight(dataframe):
     return dataframe
 
 
+# 체중 범위별 개수를 출력하는 함수 : 데이터 확인 및 오류 데이터 확인 용도
+def print_weight_ranges(dataframe):
+    ranges = [
+        ("0.01 미만", dataframe[dataframe['체중'] < 0.01].shape[0]),    # 간혹 신생아 강아지들의 몸무게가 해당 범위에 포함됨
+        ("0.1 미만", dataframe[dataframe['체중'] < 0.1].shape[0]),
+        ("0.5 미만", dataframe[dataframe['체중'] < 0.5].shape[0]),
+        ("1 미만", dataframe[dataframe['체중'] < 1].shape[0]),
+        ("1 ~ 5 미만", dataframe[(dataframe['체중'] >= 1) & (dataframe['체중'] < 5)].shape[0]),
+        ("5 ~ 10 미만", dataframe[(dataframe['체중'] >= 5) & (dataframe['체중'] < 10)].shape[0]),
+        ("10 ~ 20 미만", dataframe[(dataframe['체중'] >= 10) & (dataframe['체중'] < 20)].shape[0]),
+        ("20 이상", dataframe[dataframe['체중'] >= 20].shape[0]),
+        ("30 이상", dataframe[dataframe['체중'] >= 30].shape[0]),
+        ("50 이상", dataframe[dataframe['체중'] >= 50].shape[0])
+    ]
+
+    print("◆ 체중 범위별 마리 수 ◆")
+    for label, count in ranges:
+        print(f"{label}: {count}마리")
+
+
 # CSV 파일 경로
 input_csv_file = 'preprocessing_csv_files/nonglim_feature_preprocessing.csv'
 output_csv_file = 'preprocessing_csv_files/nonglim_weight_preprocessing.csv'
@@ -39,6 +59,9 @@ data = pd.read_csv(input_csv_file)
 
 # 체중 전처리 함수 수행
 processed_data = preprocess_weight(data)
+
+# 체중 범위별 개수 출력
+# print_weight_ranges(processed_data)
 
 # 최종 데이터프레임을 CSV로 저장
 processed_data.to_csv(output_csv_file, encoding='utf-8-sig', index=False)

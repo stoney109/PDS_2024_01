@@ -46,7 +46,8 @@ seoul_api_data = seoul_api_data[~seoul_api_data['ID'].apply(lambda x: bool(re.se
 seoul_api_data = seoul_api_data[seoul_api_data['종'] == 'DOG'].reset_index(drop=True)
 
 
-# '종' 컬럼의 'DOG' 값을 '믹스'로 변경 : 논의 필요, 알 수 없는 견종에 대해 '믹스'가 가장 많아 해당 전처리를 수행했던 것으로 추정
+# '종' 컬럼의 'DOG' 값을 '믹스'로 변경
+# TODO : 논의 필요, 알 수 없는 견종에 대해 '믹스'가 가장 많아 해당 전처리를 수행했던 것으로 추정
 seoul_api_data['종'] = seoul_api_data['종'].replace('DOG', '믹스')
 
 
@@ -211,7 +212,7 @@ seoul_api_data['입양상태'] = 'N'
 
 
 # '중성화여부' 컬럼 추가 : 데이터 자체에서 중성화 여부를 알 수 없으므로 Unknown 처리
-seoul_api_data['중성화여부'] = 'U'
+seoul_api_data['중성화 여부'] = 'U'
 
 
 # 불필요한 컬럼 삭제
@@ -228,9 +229,14 @@ seoul_api_data = seoul_api_data.rename(columns={
 
 # 컬럼 순서 재배치
 columns_order = ['이름', '견종', '세부견종', '색상', '출생연도',
-                 '체중', '썸네일', '입양여부', '성별', '중성화여부', '특징', '보호장소']
+                 '체중', '썸네일', '입양여부', '성별', '중성화 여부', '특징', '보호장소']
 seoul_api_data = seoul_api_data[columns_order]
 
 
 # 최종 데이터프레임을 CSV로 저장
 seoul_api_data.to_csv(output_csv_file, encoding='utf-8-sig', index=False)
+
+
+# 처리된 요소 수 출력
+num_elements = len(seoul_api_data)
+print(f'처리된 데이터의 수: {num_elements}개')

@@ -46,7 +46,7 @@ def process_file(input_file, output_file):
     """
     # 데이터 로드
     print(f"파일 전처리 시작: {input_file}")  # 시작 알림
-    data = pd.read_csv(input_file, encoding='euc-kr', low_memory=False)
+    data = pd.read_csv(input_file, encoding='utf-8-sig', low_memory=False)
 
     # 병렬 처리 진행
     with Pool(cpu_count()) as pool:
@@ -55,6 +55,7 @@ def process_file(input_file, output_file):
 
     # 전처리 결과 분리 및 병합
     # 각 열에 대해 'cleaned_text', 'corrected_text', 'filtered_text' 데이터를 저장
+    # TODO : 전처리 이후, 사용할 컬럼만 남기도록 코드 추가가 필요함
     data['cleaned_text'], data['corrected_text'], data['filtered_text'] = zip(*results)
 
     # 전처리 결과를 CSV 파일로 저장
@@ -114,21 +115,53 @@ def correct_spelling(text):
     return text  # 빈 텍스트 그대로 반환
 
 
-# 명사, 형용사, 동사, 부사 필터링 함수
+# 불용어 제거 함수
+def remove_stopwords(lemmas, stopwords_lst):
+    """
+    형태소 리스트에서 불용어를 제거하는 함수
+
+    Parameters:
+        lemmas (list): 형태소 리스트
+        stopwords_lst (list): 불용어 리스트
+
+    Returns:
+        list: 불용어가 제거된 형태소 리스트
+    """
+    return [lemma for lemma in lemmas if lemma not in stopwords_lst]
+
+
 def extract_lemmas(text):
+    """
+       텍스트에서 명사, 형용사, 동사, 부사를 추출하고 불용어를 제거하는 함수
+
+       Parameters:
+           text (str): 처리할 텍스트 데이터
+
+       Returns:
+           list: 추출된 형태소에서 불용어가 제거된 리스트
+    """
     if pd.notnull(text):
         # 텍스트에서 명사(Noun), 형용사(Adjective), 동사(Verb), 부사(Adverb)를 추출
-        return [lemma for lemma, pos in okt.pos(text, norm=True, stem=True) if pos in ['Noun', 'Verb', 'Adjective', 'Adverb']]
+        lemmas = [lemma for lemma, pos in okt.pos(text, norm=True, stem=True) if pos in ['Noun', 'Verb', 'Adjective', 'Adverb']]
+        # 불용어 제거
+        return remove_stopwords(lemmas, stopwords)
     else:
-        return []
+        return []   # 빈 텍스트는 빈 리스트 반환
 
 
-# 병렬 처리 함수
 def process_row(row):
     """
-        1. 텍스트 정리
-        2. 맞춤법 교정
-        3. 형태소 추출
+        위의 함수들을 실행하도록 하는 함수 : 각 실행 결과들은 해당 컬럼으로 저장
+        다음과 같은 전처리 과정을 수행:
+            1. 텍스트 정리 (clean_text)
+            2. 맞춤법 교정 (correct_spelling)
+            3. 형태소 추출 및 불용어 제거 (extract_lemmas)
+
+        Parameters:
+            row (str): 전처리할 텍스트 데이터
+
+        Returns:
+            tuple: (cleaned_text, corrected_text, filtered_text)
     """
     cleaned = clean_text(row)
     corrected = correct_spelling(cleaned)
@@ -136,7 +169,40 @@ def process_row(row):
     return cleaned, corrected, filtered
 
 
-# 병렬 처리 시작
+# 불용어 사전 : 전역 변수로 설정
+stopwords = [
+        # 색상 관련 단어 : 색깔, 색상 표현을 나타내는 불용어
+        '색상', '색깔', '색',
+        '빨강', '빨간색', '빨간', '빨갛다',
+        '주황', '주황색', '주홍색', '주홍',
+        '노랑', '노란색', '노란', '노랗다',
+        '초록', '초록색', '초록빛', '연두', '연두색', '초록빛', '초록하다',
+        '파랑', '파란색', '파란', '하늘색', '남색', '청색', '파랗다', '푸르다',
+        '보라', '보라색', '자주', '자주색',
+        '흰색', '하얀', '하얀색', '백색', '하얗다',
+        '검정', '검은', '검정색', '까만', '까만색', '검다',
+        '회색', '회빛',
+        '갈색', '브라운', '갈색빛',
+        '분홍', '분홍색', '핑크',
+        '금색', '황금색', '황색', '금빛',
+        '은색', '은빛',
+        '다홍', '다홍색',
+        '아이보리', '아이보리색',
+        '베이지', '베이지색',
+        '민트', '민트색',
+        '초코색', '초콜릿색',
+        '청록색', '카키', '카키색',
+        '와인', '와인색',
+
+        # 일반 불용어
+        '있다', '없다', '되다', '하다', '이다', '보임', '상태',
+        '한', '그', '및', '하는', '하며', '부터', '까지',
+        '것', '이런', '저런', '때문에', '위해', '가장',
+        '매우', '모든', '다양한', '특히', '많은', '이', '저',
+        '그것', '등', '위치', '크기', '종류', '상태', '등등', '따른', '대해', '추정'
+    ]
+
+
 if __name__ == "__main__":
     # 특성 전처리 대상 파일 경로, 전처리 후 저장 경로 설정
     files_to_process = [
@@ -146,6 +212,6 @@ if __name__ == "__main__":
         ("../resource/final_unadopted_data.csv", "preprocessing_csv_files/trait_unadopted_preprocessing.csv")
     ]
 
-    # 각 파일 처리
+    # 각 파일에 대해 전처리 실행
     for input_files, output_files in files_to_process:
         process_file(input_files, output_files)

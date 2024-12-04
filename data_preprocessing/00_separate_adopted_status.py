@@ -1,24 +1,19 @@
 import pandas as pd
 
 # CSV 파일 경로 설정
+# 입력 : 전체 데이터 파일(input_csv_file)
+# 출력 : 입양된 데이터 파일(output_csv_file_adopted), 입양되지 않은 데이터 파일(output_csv_file_unadopted)
 input_csv_file = '../resource/result_all_data.csv'
-output_csv_file_adopted = 'preprocessing_csv_files/test_final_adopted_data.csv.csv'
-output_csv_file_unadopted = 'preprocessing_csv_files/test_final_unadopted_data.csv'
+output_csv_file_adopted = '../resource/final_adopted_data.csv'
+output_csv_file_unadopted = '../resource/final_unadopted_data.csv'
 
 # CSV 파일 읽기
-data = pd.read_csv(input_csv_file, encoding='euc-kr')
+data = pd.read_csv(input_csv_file, encoding='utf-8-sig')
 
-# '입양여부' 컬럼의 결측치 개수 확인
-missing_values = data['입양여부'].isnull().sum()
-print(f"'입양여부' 컬럼의 결측치 개수: {missing_values}")
-
-# 결측치 제거
-data = data.dropna(subset=['입양여부'])
-
-# 입양된 데이터 필터링
+# 입양된 데이터 필터링 : '입양여부'가 'Y'인 경우
 adopted_data = data[data['입양여부'].str.contains('Y')].copy()
 
-# 입양되지 않은 데이터 필터링
+# 입양되지 않은 데이터 필터링 : '입양여부'가 'N'인 경우
 unadopted_data = data[data['입양여부'].str.contains('N')].copy()
 
 # 입양된 데이터와 입양되지 않은 데이터를 각각 새로운 CSV 파일로 저장
