@@ -96,6 +96,31 @@ for i in range(len(seoul_api_data)):
 seoul_api_data['출생연도'] = birth_years
 
 
+# 기존 '나이' 컬럼값을 소숫점 한 자리로 변환하여 대체
+for idx, row in seoul_api_data.iterrows():
+    age_str = row['나이']
+    try:
+        # '세' 값 추출
+        years = int(age_str.split('(세)')[0].strip())  # '세' 앞의 숫자
+
+        # '개월' 값 추출
+        if '(개월)' in age_str:
+            months = int(age_str.split('(세)')[1].replace('(개월)', '').strip())
+        else:
+            months = 0
+
+        # 나이 계산 (소숫점 한 자리까지)
+        age = round(years + months / 12, 1)
+
+        # 변환된 값을 데이터프레임에 반영
+        seoul_api_data.at[idx, '나이'] = age
+
+    except Exception as e:
+        # 예외 처리: 디버깅을 위해 에러 메시지 출력
+        print(f"Error processing row {idx} with value '{age_str}': {e}")
+        seoul_api_data.at[idx, '나이'] = 0  # 변환 실패 시 0으로 설정
+
+
 # 보호장소 컬럼 추가
 locations = []
 for name in seoul_api_data['이름']:
@@ -228,7 +253,7 @@ seoul_api_data = seoul_api_data.rename(columns={
 
 
 # 컬럼 순서 재배치
-columns_order = ['이름', '견종', '세부견종', '색상', '출생연도',
+columns_order = ['이름', '견종', '세부견종', '색상', '출생연도', '나이',
                  '체중', '썸네일', '입양여부', '성별', '중성화 여부', '특징', '보호장소']
 seoul_api_data = seoul_api_data[columns_order]
 

@@ -34,7 +34,7 @@ from datetime import datetime, timedelta
 # CSV 파일 경로 설정
 input_csv_file = '../resource/crawing_data/cafe_crawling_20231116.csv'
 output_csv_file = 'preprocessing_csv_files/cafe_base_preprocessing.csv'
-cafe_date_csv_file = '../resource/crawing_data/cafe_date.csv'
+cafe_date_csv_file = 'preprocessing_csv_files/cafe_date.csv'
 
 # 데이터 불러오기 (UTF-8로 인코딩된 CSV 파일)
 cafe_data = pd.read_csv(input_csv_file, encoding='utf-8')
@@ -325,8 +325,12 @@ data_cafe_craw['나이_조정'] = data_cafe_craw.apply(
 
 
 # 불필요한 열 삭제
-columns_to_drop = ['date','제목','텍스트', '나이', '나이_숫자', '나이_조정']
+columns_to_drop = ['date','제목','텍스트', '나이', '나이_숫자']
 data_cafe_craw = data_cafe_craw.drop(columns=columns_to_drop, axis=1)
+
+
+# '나이_조정' 컬럼을 '나이'로 변경
+data_cafe_craw.rename(columns={'나이_조정': '나이'}, inplace=True)
 
 
 # '입양여부' 열 추가 : 네이버 카페의 입양완료 게시판의 크롤링 데이터 이므로 모두 Y로 처리
@@ -464,7 +468,7 @@ data_cafe_craw = data_cafe_craw.rename(columns={'성격 및 기타 특징': '특
 
 
 # 컬럼 순서 재배치
-columns_order = ['이름', '견종', '세부견종', '색상', '출생연도', '체중', '썸네일',
+columns_order = ['이름', '견종', '세부견종', '색상', '출생연도', '나이', '체중', '썸네일',
                  '입양여부', '성별', '중성화 여부', '특징', '보호장소']
 data_cafe_craw = data_cafe_craw[columns_order]
 
