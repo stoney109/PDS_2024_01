@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+
 ##TODO : 나이 컬럼 생성 후 오류 안나는지 다시 한 번 확인 필요
+
 def plot_age_histogram(adopted_data, unadopted_data):
     """
     입양된 데이터와 입양되지 않은 데이터의 '나이'를 비율 기반 히스토그램으로 시각화

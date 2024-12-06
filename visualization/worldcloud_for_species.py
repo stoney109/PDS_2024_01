@@ -65,7 +65,7 @@ if __name__ == "__main__":
     # 두 CSV 파일 경로 및 사용할 열 이름
     adopted_csv_path = '../resource/final_adopted_data.csv'  # 입양된 데이터 경로
     unadopted_csv_path = '../resource/final_unadopted_data.csv'  # 입양되지 않은 데이터 경로
-    column_name = '견종'  # 분석할 열 이름
+    column_name = '세부견종'  # 분석할 열 이름
 
     # 두 데이터 읽기
     adopted_data = read_csv_column(adopted_csv_path, column_name)
