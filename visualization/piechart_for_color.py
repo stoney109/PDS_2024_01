@@ -55,8 +55,8 @@ adopted_csv_path = '../resource/final_adopted_data.csv'
 unadopted_csv_path = '../resource/final_unadopted_data.csv'
 
 try: # 데이터 불러오기
-    adopted_data = pd.read_csv(adopted_csv_path, encoding='euc-kr')
-    unadopted_data = pd.read_csv(unadopted_csv_path, encoding='euc-kr')
+    adopted_data = pd.read_csv(adopted_csv_path, encoding='utf-8-sig')
+    unadopted_data = pd.read_csv(unadopted_csv_path, encoding='utf-8-sig')
 
     # 전체 고유 라벨 추출
     unique_labels = set(adopted_data['색상'].str.lower().unique()) | set(unadopted_data['색상'].str.lower().unique())

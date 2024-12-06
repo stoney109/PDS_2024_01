@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-
+##TODO : 나이 컬럼 생성 후 오류 안나는지 다시 한 번 확인 필요
 def plot_age_histogram(adopted_data, unadopted_data):
     """
     입양된 데이터와 입양되지 않은 데이터의 '나이'를 비율 기반 히스토그램으로 시각화
@@ -68,8 +68,8 @@ unadopted_csv_path = '../resource/final_unadopted_data.csv'  # 입양되지 않�
 
 # 데이터 읽기 및 시각화 호출
 try:
-    adopted_data = pd.read_csv(adopted_csv_path, encoding='euc-kr', low_memory=False)  # 입양된 데이터
-    unadopted_data = pd.read_csv(unadopted_csv_path, encoding='euc-kr', low_memory=False)  # 입양되지 않은 데이터
+    adopted_data = pd.read_csv(adopted_csv_path, encoding='utf-8-sig', low_memory=False)  # 입양된 데이터
+    unadopted_data = pd.read_csv(unadopted_csv_path, encoding='utf-8-sig', low_memory=False)  # 입양되지 않은 데이터
 
     plot_age_histogram(adopted_data, unadopted_data)  # 히스토그램 생성 및 출력
 

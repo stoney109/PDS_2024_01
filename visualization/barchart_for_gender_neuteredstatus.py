@@ -85,8 +85,8 @@ unadopted_csv_path = '../resource/final_unadopted_data.csv'  # 입양되지 않�
 # 데이터 읽기 및 함수 호출
 try:
     # CSV 파일 읽기
-    adopted_data = pd.read_csv(adopted_csv_path, encoding='euc-kr', low_memory=False)  # 입양된 데이터
-    unadopted_data = pd.read_csv(unadopted_csv_path, encoding='euc-kr', low_memory=False)  # 입양되지 않은 데이터
+    adopted_data = pd.read_csv(adopted_csv_path, encoding='utf-8-sig', low_memory=False)  # 입양된 데이터
+    unadopted_data = pd.read_csv(unadopted_csv_path, encoding='utf-8-sig', low_memory=False)  # 입양되지 않은 데이터
 
     # 비율 기반 막대그래프 시각화 함수 호출 (그래프 위에 비율 표시 포함)
     plot_bar_charts_percentage_with_labels(adopted_data, unadopted_data)

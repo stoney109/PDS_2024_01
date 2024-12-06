@@ -36,7 +36,7 @@ def generate_wordcloud(texts, title, font_path='C:/Windows/Fonts/malgun.ttf', ba
     return wordcloud
 
 
-def read_csv_column(file_path, column_name, encoding='euc-kr'):
+def read_csv_column(file_path, column_name, encoding='utf-8-sig'):
     """
     CSV 파일에서 특정 열의 데이터를 읽어옵니다.
 

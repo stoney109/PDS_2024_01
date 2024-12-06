@@ -58,8 +58,8 @@ unadopted_csv_path = '../resource/final_unadopted_data.csv'  # 입양되지 않�
 # 데이터 읽기
 try:
     # low_memory=False : 메모리 사용을 최적화하면서 경고를 방지
-    adopted_data = pd.read_csv(adopted_csv_path, encoding='euc-kr', low_memory=False)  # 입양된 데이터
-    unadopted_data = pd.read_csv(unadopted_csv_path, encoding='euc-kr', low_memory=False)  # 입양되지 않은 데이터
+    adopted_data = pd.read_csv(adopted_csv_path, encoding='utf-8-sig', low_memory=False)  # 입양된 데이터
+    unadopted_data = pd.read_csv(unadopted_csv_path, encoding='utf-8-sig', low_memory=False)  # 입양되지 않은 데이터
 
 except FileNotFoundError: # 파일이 없을 경우 에러 처리
     print("파일을 찾을 수 없습니다. 경로를 확인하세요.")
