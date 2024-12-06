@@ -139,7 +139,7 @@ if __name__ == "__main__":
         })
 
         # 최종 CSV 저장
-        output_filename = '../resource/crawing_data/nonglim_crawling_20231116.csv'
+        output_filename = '../resource/crawing_data/nonglim_crawling_2024new.csv'
         df_selected.to_csv(output_filename, encoding='utf-8-sig', index=False)
 
         print(f"크롤링 완료: 총 {len(result_info_out)}개 데이터를 수집했습니다.")
