@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
 
 def plot_bar_charts_percentage_with_labels(adopted_data, unadopted_data):
     """
@@ -76,6 +77,14 @@ def plot_bar_charts_percentage_with_labels(adopted_data, unadopted_data):
     # 레이아웃 조정 및 그래프 출력
     plt.tight_layout()
     plt.show()
+
+    # 저장 경로 설정
+    os.makedirs("visualization_png", exist_ok=True)  # 폴더가 없으면 생성
+    save_path = "visualization_png/barchart_gender_neutering.png"
+
+    # 그래프 저장
+    plt.savefig(save_path, dpi=300, bbox_inches='tight')
+    print(f"그래프가 저장되었습니다: {save_path}")
 
 
 # CSV 파일 경로 설정

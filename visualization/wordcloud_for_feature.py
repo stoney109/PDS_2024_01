@@ -89,4 +89,5 @@ if __name__ == "__main__":
     plt.axis('off')  # 축과 눈금 제거
 
     plt.tight_layout()
+    plt.savefig("visualization_png/wordcloud_feature.png", dpi=300, bbox_inches='tight')
     plt.show()
