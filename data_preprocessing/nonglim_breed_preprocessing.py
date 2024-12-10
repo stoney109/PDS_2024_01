@@ -215,7 +215,7 @@ def separate_detail_breed(combination_data, breed_file):
 
     # 컬럼 순서
     column_order = [
-        '접수일', '견종', '세부견종', '색상', '출생연도', '체중', '썸네일', '입양여부', '성별', '중성화 여부', '특징', '보호장소'
+        '접수일', '견종', '세부견종', '색상', '출생연도', '나이', '체중', '썸네일', '입양여부', '성별', '중성화 여부', '특징', '보호장소'
     ]
 
     # 컬럼 순서 재배치
@@ -232,13 +232,13 @@ def separate_detail_breed(combination_data, breed_file):
             pd.DataFrame: 전처리된 데이터프레임
         """
         # '세부견종' 컬럼에 '믹스'가 있는지 확인하고 처리
-        dataframe['견종'] = dataframe['세부견종'].apply(lambda x: '믹스' if pd.notna(x) and '믹스' in x else '')
+        dataframe.loc[:, '견종'] = dataframe['세부견종'].apply(lambda x: '믹스' if pd.notna(x) and '믹스' in x else '')
 
         # '세부견종'에 '믹스'가 있는 경우에 '견종'에 '믹스' 입력
         dataframe.loc[dataframe['세부견종'].str.contains('믹스', na=False), '견종'] = '믹스'
 
         # '세부견종'에 있는 '믹스' 제거
-        dataframe['세부견종'] = dataframe['세부견종'].str.replace('믹스, ', '', regex=False)
+        dataframe.loc[:, '세부견종'] = dataframe['세부견종'].str.replace('믹스, ', '', regex=False)
 
         # '견종' 컬럼이 '믹스'가 아닌 경우, '세부견종'에서 가장 긴 문자열만 남기기
         non_mix_mask = (dataframe['견종'] != '믹스')
@@ -247,7 +247,7 @@ def separate_detail_breed(combination_data, breed_file):
         )
 
         # '세부견종'에서 가장 뒤에 있는 콤마(,) 제거
-        dataframe['세부견종'] = dataframe['세부견종'].str.rstrip(',')
+        dataframe.loc[:, '세부견종'] = dataframe['세부견종'].str.rstrip(',')
 
         # 일부 '믹스'인 경우에 대한 처리 (e.g. 보더콜리 믹스 >> 믹스 / 보더콜리)
         breed_replacements = {
@@ -270,10 +270,10 @@ def separate_detail_breed(combination_data, breed_file):
             '잭러셀테리어, 테리어': '잭러셀테리어',
             '요크셔테리어, 테리어': '요크셔테리어'
         }
-        dataframe['세부견종'] = dataframe['세부견종'].replace(breed_replacements, regex=True)
+        dataframe.loc[:, '세부견종'] = dataframe['세부견종'].replace(breed_replacements, regex=True)
 
         # '세부견종' 컬럼이 비어 있는 경우 '알수없음'으로 처리
-        dataframe['세부견종'] = dataframe['세부견종'].apply(lambda x: '알수없음' if pd.isna(x) or x.strip() == '' else x)
+        dataframe.loc[:, '세부견종'] = dataframe['세부견종'].apply(lambda x: '알수없음' if pd.isna(x) or x.strip() == '' else x)
 
         # '견종' 컬럼이 비어 있는 경우, '세부견종'의 내용을 복사
         dataframe.loc[dataframe['견종'] == '', '견종'] = dataframe['세부견종']
@@ -289,7 +289,7 @@ def separate_detail_breed(combination_data, breed_file):
 # CSV 파일 경로
 input_csv_file = 'preprocessing_csv_files/nonglim_color_preprocessing.csv'
 output_csv_file = 'preprocessing_csv_files/nonglim_breed_preprocessing.csv'
-breed_csv_file = '../resource/crawing_data/breed.csv'
+breed_csv_file = 'preprocessing_csv_files/breed.csv'
 
 # CSV 파일 읽기
 data = pd.read_csv(input_csv_file)

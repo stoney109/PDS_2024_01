@@ -72,8 +72,8 @@ if __name__ == "__main__":
     unadopted_data = read_csv_column(unadopted_csv_path, column_name)
 
     # 워드클라우드 생성
-    adopted_wordcloud = generate_wordcloud(adopted_data,"Adopted_speices")
-    unadopted_wordcloud = generate_wordcloud(unadopted_data, "Unadopted_speices")
+    adopted_wordcloud = generate_wordcloud(adopted_data,"Adopted_feature")
+    unadopted_wordcloud = generate_wordcloud(unadopted_data, "Unadopted_feature")
 
     # 두 워드클라우드를 하나의 화면에 표시
     plt.figure(figsize=(16, 8))
@@ -89,4 +89,5 @@ if __name__ == "__main__":
     plt.axis('off')  # 축과 눈금 제거
 
     plt.tight_layout()
+    plt.savefig("visualization_png/wordcloud_feature.png", dpi=300, bbox_inches='tight')
     plt.show()

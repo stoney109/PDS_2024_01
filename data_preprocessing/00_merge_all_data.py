@@ -11,7 +11,7 @@ df_cafe = pd.read_csv(file_cafe)
 df_seoul = pd.read_csv(file_seoul)
 
 # 공통 컬럼만 유지 : 분석에 필요한 공통 컬럼만 선택
-common_columns = ['견종', '세부견종', '색상', '출생연도', '체중', '썸네일', '입양여부', '성별', '중성화 여부', '특징', '보호장소']
+common_columns = ['견종', '세부견종', '색상', '출생연도', '나이', '체중', '썸네일', '입양여부', '성별', '중성화 여부', '특징', '보호장소']
 
 # 위의 공통 컬럼만 선택하여 각 데이터프레임 업데이트
 df_nonglim = df_nonglim[common_columns]
@@ -47,9 +47,9 @@ merged_df.info()
 print("------------------------------")
 
 # # 각 데이터프레임의 결측치 개수 확인 : 필요에 따라 주석 처리
-# print("\n농림 데이터, 각 컬럼의 결측치 개수:")
-# print(df_nonglim.isnull().sum())
-# print("\n카페 데이터, 각 컬럼의 결측치 개수:")
-# print(df_cafe.isnull().sum())
-# print("\n서울 데이터, 각 컬럼의 결측치 개수:")
-# print(df_seoul.isnull().sum())
+print("\n◆ 농림 데이터, 각 컬럼의 결측치 개수:")
+print(df_nonglim.isnull().sum())
+print("\n◆ 카페 데이터, 각 컬럼의 결측치 개수:")
+print(df_cafe.isnull().sum())
+print("\n◆ 서울 데이터, 각 컬럼의 결측치 개수:")
+print(df_seoul.isnull().sum())
