@@ -25,9 +25,11 @@
 **목적:** 입양 여부에 따른 성별과 중성화 상태의 분포를 시각화.
 
 **세부 사항:**
+- 일부 잘 못 입력된 데이터 전처리 (  W -> F )
 - 데이터를 `성별`과 `중성화 여부`로 그룹화.
 - 각 조합의 빈도를 표시하는 누적 막대 그래프 생성.
-![barchart_gender_neutering](https://github.com/user-attachments/assets/d400a921-84b3-4cb5-b5cc-d9c98d378714)
+![barchart_gender_neutering](https://github.com/user-attachments/assets/b3ee8bc8-b6d0-49cd-a9db-4872feeab2d5)
+
 
 
 ---
