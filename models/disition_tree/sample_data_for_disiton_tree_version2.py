@@ -15,7 +15,7 @@ x데이터 해석
 
 import pandas as pd
 
-file_path = '../resource/final_unadopted_data.csv'
+file_path = '../../resource/final_unadopted_data.csv'
 
 original_data = pd.read_csv(file_path)
 

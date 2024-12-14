@@ -84,7 +84,7 @@ if __name__ == "__main__":
     model = AutoModelForSequenceClassification.from_pretrained("beomi/kcbert-large", num_labels=2)
 
     # 감성 분석 대상 텍스트 데이터를 포함한 CSV 파일 로드
-    input_file_path = "../resource/gpt_preprocessed_data/gpt_result_all_data.csv"  # CSV 파일 경로
+    input_file_path = "../../resource/gpt_preprocessed_data/gpt_result_all_data.csv"  # CSV 파일 경로
     df = pd.read_csv(input_file_path, encoding='utf-8-sig')
 
     # GPT_특성을 쉼표로 나눠 리스트로 변환

@@ -57,8 +57,8 @@ def preprocess_dog_data(file_path):
 
     return processed_data
 
-file_path = '../resource/final_adopted_data.csv'  # Replace with your file path
-processed_file_path = 'sample_data/sample_data_disition_tree.csv'  # Path to save processed data
+file_path = '../../resource/final_adopted_data.csv'
+processed_file_path = 'sample_data/sample_data_disition_tree.csv'
 
 processed_data = preprocess_dog_data(file_path)
 
