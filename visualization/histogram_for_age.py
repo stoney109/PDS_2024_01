@@ -61,7 +61,7 @@ def plot_age_histogram(adopted_data, unadopted_data):
     ax.legend()  # 범례 추가
 
     plt.tight_layout()  # 레이아웃 조정
-    plt.show()  # 그래프 출력
+
 
     # 저장 경로 설정
     os.makedirs("visualization_png", exist_ok=True)  # 폴더가 없으면 생성
@@ -70,6 +70,8 @@ def plot_age_histogram(adopted_data, unadopted_data):
     # 히스토그램 저장
     plt.savefig(save_path, dpi=300, bbox_inches='tight')
     print(f"히스토그램이 저장되었습니다: {save_path}")
+
+    plt.show()  # 그래프 출력
 
 
 # CSV 파일 경로 설정

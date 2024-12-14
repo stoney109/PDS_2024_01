@@ -76,7 +76,7 @@ def plot_bar_charts_percentage_with_labels(adopted_data, unadopted_data):
 
     # 레이아웃 조정 및 그래프 출력
     plt.tight_layout()
-    plt.show()
+
 
     # 저장 경로 설정
     os.makedirs("visualization_png", exist_ok=True)  # 폴더가 없으면 생성
@@ -86,6 +86,7 @@ def plot_bar_charts_percentage_with_labels(adopted_data, unadopted_data):
     plt.savefig(save_path, dpi=300, bbox_inches='tight')
     print(f"그래프가 저장되었습니다: {save_path}")
 
+    plt.show()
 
 # CSV 파일 경로 설정
 adopted_csv_path = '../resource/final_adopted_data.csv'  # 입양된 데이터 경로

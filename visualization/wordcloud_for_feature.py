@@ -17,7 +17,6 @@ def generate_wordcloud(texts, title, font_path='C:/Windows/Fonts/malgun.ttf', ba
     combined_text = ' '.join(texts)
 
 
-    # 빈도수가 3 이상인 특징에 나타나는 단어를 시각화 해서 보고 싶을 때
     # 단어 빈도수 계산 및 빈도수 10 이상 단어 필터링
     word_counts = Counter(combined_text.split())
     filtered_text = ' '.join([word for word, count in word_counts.items() if count > 10])
