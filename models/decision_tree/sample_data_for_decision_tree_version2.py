@@ -48,4 +48,4 @@ for column in processed_data.columns:
     final_data[f"전처리_{column}"] = processed_data[column]
 
 #결과 저장
-final_data.to_csv('sample_data/sample_data_disition_tree_version2.csv', index=False)
+final_data.to_csv('sample_data/sample_data_decision_tree_version2.csv', index=False)
