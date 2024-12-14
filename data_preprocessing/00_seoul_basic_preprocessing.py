@@ -47,7 +47,7 @@ seoul_api_data = seoul_api_data[seoul_api_data['종'] == 'DOG'].reset_index(drop
 
 
 # '종' 컬럼의 'DOG' 값을 '믹스'로 변경
-# TODO : 논의 필요, 알 수 없는 견종에 대해 '믹스'가 가장 많아 해당 전처리를 수행했던 것으로 추정
+# 알 수 없는 견종에 대해 '믹스'가 가장 많아 해당 전처리를 수행
 seoul_api_data['종'] = seoul_api_data['종'].replace('DOG', '믹스')
 
 
