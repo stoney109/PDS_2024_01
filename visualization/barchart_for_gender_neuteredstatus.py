@@ -98,6 +98,9 @@ try:
     adopted_data = pd.read_csv(adopted_csv_path, encoding='utf-8-sig', low_memory=False)  # 입양된 데이터
     unadopted_data = pd.read_csv(unadopted_csv_path, encoding='utf-8-sig', low_memory=False)  # 입양되지 않은 데이터
 
+    # unadopted_data에서 성별 값 'W'를 'F'로 변환(일부 잘못 입력된 데이터)
+    unadopted_data['성별'] = unadopted_data['성별'].replace('W', 'F')
+
     # 비율 기반 막대그래프 시각화 함수 호출 (그래프 위에 비율 표시 포함)
     plot_bar_charts_percentage_with_labels(adopted_data, unadopted_data)
 
