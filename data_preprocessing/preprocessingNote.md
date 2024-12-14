@@ -132,7 +132,7 @@
 
 ### 6. GPT를 활용한 텍스트 전처리
 
-#### `01_trait_preprocessing_with_gpt.py`
+#### `trait_preprocessing/01_trait_preprocessing_with_gpt.py`
 
 - **설명**: OpenAI GPT 3.5 turbo를 활용하여 특징 데이터를 전처리하고 주요 특성을 추출.
 - **주요 작업**:
@@ -142,7 +142,7 @@
 - **출력 파일**:
   - `gpt_trait_data.csv`: 총 6,280개의 데이터, GPT 기반 전처리 결과.
 
-#### `02_gpt_text_procesing.py`
+#### `trait_preprocessing/02_gpt_text_procesing.py`
 
 - **설명**: GPT 전처리 데이터를 추가적으로 전처리하여 `특징` 데이터에 대한 추가 전처리 진행.
 - **주요 작업**:
@@ -157,7 +157,7 @@
 
 ### 7. Konlpy를 활용한 특징 및 종 데이터 전처리
 
-#### `00_trait_preprocessing_with_konlpy.py`
+#### `trait_preprocessing/00_trait_preprocessing_with_konlpy.py`
 
 - **설명**: Konlpy와 Hanspell을 활용한 텍스트 전처리로 데이터 품질을 높임.
 - **주요 작업**:
@@ -173,7 +173,7 @@
 
 ### 8. 특징 데이터 샘플링 및 정렬
 
-#### `99_sorted_by_trait_length.py`
+#### `trait_preprocessing/99_sorted_by_trait_length.py`
 
 - **설명**: 특징 데이터 길이를 기준으로 정렬하여 GPT API 전처리 데이터 준비.
 - **출력 파일**:
@@ -183,7 +183,7 @@
 
 - **설명**: GPT API 호출 제한만큼의 데이터를 추출. (총 6,280개의 데이터)
 - **출력 파일**:
-  - `separate_gpt_trait_data.csv`: GPT 1차 전처리가 진행된 데이터만 추출한 결과.
+  - `trait_preprocessing/trait_preprocessingseparate_gpt_trait_data.csv`: GPT 1차 전처리가 진행된 데이터만 추출한 결과.
 
 
 ---
@@ -194,12 +194,12 @@
 
 - **설명**: 데이터 전처리 이후, 다양한 컬럼에 대한 고유값의 개수를 계산하고 시각화 또는 추가 분석을 위해 정리하는 코드들이 포함되어 있습니다. 각 파일은 특정 데이터 컬럼에 대한 개수 계산 로직을 포함하고 있습니다.
 - **출력 형식**:
-  - `adopted_status_counts.py`: 입양여부 데이터
-  - `breed_counts.py`: 견종 데이터
-  - `color_counts.py`: 색상 데이터
-  - `detail_breed_counts.py`: 세부 견종 데이터
-  - `neutral_counts.py`: 중성화 여부
-  - `trait_gpt_counts.py`: GPT 전처리 결과에서 고유값을 추출하고 빈도를 계산하여 개수를 출력.
+  - `adopted_status_counts.py`: 입양여부 데이터,
+  - `breed_counts.py`: 견종 데이터,
+  - `color_counts.py`: 색상 데이터,
+  - `detail_breed_counts.py`: 세부 견종 데이터,
+  - `neutral_counts.py`: 중성화 여부 전처리 결과에서 고유값을 추출하고 빈도를 계산하여 개수를 출력.
+  - `trait_gpt_counts.py` : GPT 전처리 결과에서 고유값을 추출하고 빈도를 계산하여 csv 결과로 이를 저장(trait_preprocessing 폴더).
 
 
 ---
