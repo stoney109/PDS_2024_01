@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import os
 
-##TODO : 나이 컬럼 생성 후 오류 안나는지 다시 한 번 확인 필요
 
 def plot_age_histogram(adopted_data, unadopted_data):
     """
