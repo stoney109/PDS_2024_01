@@ -76,7 +76,7 @@ column_names = ['이름','견종','나이','들어온 날짜','체중','소개�
 df = pd.DataFrame(trait_list, columns=column_names)
 
 # 데이터프레임을 CSV 파일로 저장 (UTF-8-SIG 인코딩 사용)
-df.to_csv('../resource/crawing_data/seoul_crawling_2024.csv', encoding='utf-8-sig', index=False)  # 인덱스를 제외하고 저장
+df.to_csv('../resource/crawling_data/seoul_crawling_2024.csv', encoding='utf-8-sig', index=False)  # 인덱스를 제외하고 저장
 
 # 브라우저 닫기
 browser.quit()

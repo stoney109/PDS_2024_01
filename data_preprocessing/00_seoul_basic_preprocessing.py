@@ -31,7 +31,7 @@ from datetime import datetime, timedelta
 
 
 # CSV 파일 경로 설정
-input_csv_file = '../resource/crawing_data/seoul_crawling_20231116.csv'
+input_csv_file = '../resource/crawling_data/seoul_crawling_20231116.csv'
 output_csv_file = 'preprocessing_csv_files/seoul_base_preprocessing.csv'
 
 # 데이터 불러오기

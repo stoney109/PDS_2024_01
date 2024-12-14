@@ -30,7 +30,7 @@ from datetime import datetime, timedelta
 '''
 
 # CSV 파일 경로 설정
-input_csv_file = '../resource/crawing_data/cafe_crawling_20231116.csv'
+input_csv_file = '../resource/crawling_data/cafe_crawling_20231116.csv'
 output_csv_file = 'preprocessing_csv_files/cafe_base_preprocessing.csv'
 cafe_date_csv_file = 'preprocessing_csv_files/cafe_date.csv'
 

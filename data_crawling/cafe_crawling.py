@@ -88,4 +88,4 @@ for i in range(len(thumbnail_list)):
      final_result.append([date_i,thumbnail_i, title_i, text_i])
 
 df = pd.DataFrame(final_result, columns=['date','썸네일','제목', '텍스트'])
-df.to_csv('../resource/crawing_data/cafe_crawling_2024.csv', encoding='utf-8-sig')
+df.to_csv('../resource/crawling_data/cafe_crawling_2024.csv', encoding='utf-8-sig')
