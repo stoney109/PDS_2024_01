@@ -74,7 +74,7 @@
 **목적:** 텍스트 기반 특징 데이터를 시각화하여 빈도수가 높은 주요 단어를 파악.
 
 **세부 사항:**
-- 특징 데이터를 텍스트 형태로 변환.
+- 특징 데이터를 텍스트 형태로 변환( ChatGpt api 사용으로 텍스트가 긴 일부 데이터만 활용)
 - 워드 클라우드를 생성하여 주요 단어(빈도수 10 이상)를 시각화
 ![wordcloud_feature](https://github.com/user-attachments/assets/e8b34aae-aeed-4f8a-aa2a-8e83533d15a1)
 
