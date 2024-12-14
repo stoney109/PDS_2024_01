@@ -1,7 +1,6 @@
 import pandas as pd
 from datetime import datetime, timedelta
 
-
 '''
 
 ◆ 해당 파일에서 진행하는 데이터 전처리는 다음과 같습니다. ◆
@@ -14,10 +13,10 @@ from datetime import datetime, timedelta
     1) 고양이 관련 단어가 포함된 행 삭제 >> 개 관련 데이터만 추출
     2) 특정 구간 텍스트 추출
     3) 불필요한 특수문자 제거
-    
+
 4. 새로운 컬럼 생성 : 텍스트 및 제목을 기반으로 필요한 정보 추출
     >> 이름, 보호장소, 견종, 성별, 중성화 여부, (추정나이 및 나이), 출생연도, 입양 여부
-    
+
 5. 불필요한 컬럼 삭제 : Unnamed: 0_x, Unnamed: 0_y, date, 제목, 텍스트, 나이, 나이_숫자 등
 
 6. 입양 여부 추가 : 네이버 카페의 입양완료 게시판의 크롤링 데이터 이므로, 모든 데이터에 입양여부를 Y로 설정
@@ -29,7 +28,6 @@ from datetime import datetime, timedelta
 9. 다른 데이터와 컬럼명 및 형태 통일
 
 '''
-
 
 # CSV 파일 경로 설정
 input_csv_file = '../resource/crawing_data/cafe_crawling_20231116.csv'
@@ -49,7 +47,6 @@ data_cafe_craw = data_cafe_craw.drop(columns=['Unnamed: 0_x', 'Unnamed: 0_y'], a
 # 'date' 컬럼에서 특정 연도로 시작하는 데이터만 필터링
 data_cafe_craw = data_cafe_craw[data_cafe_craw['date'].str.startswith(('2020', '2021', '2022', '2023'))]
 
-
 # 텍스트 데이터 정제 : 강아지 데이터 중심 활용이므로, 고양이 관련 단어가 있는 행 삭제
 drop_indices = []
 keywords_to_exclude = ['고양이', '묘종', '히말라얀', '페르시안', '터키시앙고라', '길냥이']
@@ -57,7 +54,6 @@ for idx, text in enumerate(data_cafe_craw['텍스트']):
     if any(keyword in text for keyword in keywords_to_exclude):
         drop_indices.append(idx)
 data_cafe_craw = data_cafe_craw.drop(index=drop_indices).reset_index(drop=True)
-
 
 # 텍스트 데이터 정제 : 특정 구간만 남기기
 for idx, text in enumerate(data_cafe_craw['텍스트']):
@@ -74,25 +70,22 @@ for idx, text in enumerate(data_cafe_craw['텍스트']):
     else:
         data_cafe_craw.at[idx, '텍스트'] = text
 
-
 # 텍스트 정제: 불필요한 특수문자 제거
 data_cafe_craw['텍스트'] = data_cafe_craw['텍스트'].apply(
     lambda text: text.replace("''", "")
-                    .replace(",", "")
-                    .replace("]", "")
-                    .replace("[", "")
-                    .replace("'", "")
-                    .replace("\\u200b", "")
-                    .replace("\\xa0", "")
+    .replace(",", "")
+    .replace("]", "")
+    .replace("[", "")
+    .replace("'", "")
+    .replace("\\u200b", "")
+    .replace("\\xa0", "")
 )
-
 
 # '이름' 칼럼 생성 (e.g. 쥬피(입양완료-2023.10.24 마포센터) -> '(' 앞의 '쥬피'만 추출)
 for i in range(len(data_cafe_craw)):
     sample = data_cafe_craw['제목'][i]
     index_1 = sample.find('(')
     data_cafe_craw.at[i, '이름'] = sample[:index_1]
-
 
 # '보호장소' 정보를 추가 (마포구, 동대문구, 구로구) : 텍스트 내에서 찾기
 for i in range(len(data_cafe_craw)):
@@ -102,12 +95,11 @@ for i in range(len(data_cafe_craw)):
     index_3 = sample.find('구로')
 
     if index_1 != -1:
-      data_cafe_craw.at[i, '보호장소'] = '마포구'
+        data_cafe_craw.at[i, '보호장소'] = '마포구'
     elif index_2 != -1:
-      data_cafe_craw.at[i, '보호장소'] = '동대문구'
+        data_cafe_craw.at[i, '보호장소'] = '동대문구'
     elif index_3 != -1:
-      data_cafe_craw.at[i, '보호장소'] = '구로구'
-
+        data_cafe_craw.at[i, '보호장소'] = '구로구'
 
 # '보호장소' 정보를 추가 (마포구, 동대문구, 구로구) : 제목 내에서 찾기
 for i in range(len(data_cafe_craw)):
@@ -117,20 +109,18 @@ for i in range(len(data_cafe_craw)):
     index_3 = sample.find('구로')
 
     if index_1 != -1:
-      data_cafe_craw.at[i, '보호장소'] = '마포구'
+        data_cafe_craw.at[i, '보호장소'] = '마포구'
     elif index_2 != -1:
-      data_cafe_craw.at[i, '보호장소'] = '동대문구'
+        data_cafe_craw.at[i, '보호장소'] = '동대문구'
     elif index_3 != -1:
-      data_cafe_craw.at[i, '보호장소'] = '구로구'
+        data_cafe_craw.at[i, '보호장소'] = '구로구'
     else:
-      data_cafe_craw.at[i, '보호장소'] = '서울시'
-
+        data_cafe_craw.at[i, '보호장소'] = '서울시'
 
 # '보호장소' 데이터 정리
 data_cafe_craw['보호장소'] = data_cafe_craw['보호장소'].apply(
     lambda x: '서울특별시' if '서울시' in str(x) else f'서울특별시 {x}'
 )
-
 
 # '견종' 데이터 정제
 not_form = []
@@ -155,7 +145,6 @@ for i in range(len(data_cafe_craw)):
         not_form.append(i)
         data_cafe_craw.at[i, '견종'] = sample
 
-
 # '견종' 열에서 빈 문자열을 NaN으로 변환
 data_cafe_craw['견종'] = data_cafe_craw['견종'].replace('', pd.NA)
 
@@ -175,16 +164,14 @@ for index, row in rows_with_null.iterrows():
         # '견종'이 없고 '성별'만 있다면 '성별' 이후 텍스트를 추가
         data_cafe_craw.at[index, '견종'] = text[index_sex:]
 
-
 # '견종' 데이터에서 ':' 뒤의 텍스트를 남기고 나머지 제거
 for i in range(len(data_cafe_craw)):
     sample = data_cafe_craw['견종'][i]
     name = data_cafe_craw['이름'][i]
     if ':' in sample:
-      data_cafe_craw.at[i, '견종'] = sample.split(':')[1]
+        data_cafe_craw.at[i, '견종'] = sample.split(':')[1]
     else:
-       data_cafe_craw.at[i, '견종'] = sample
-
+        data_cafe_craw.at[i, '견종'] = sample
 
 # '성별' 정보를 '텍스트'에서 추출
 for i in range(len(data_cafe_craw)):
@@ -193,18 +180,16 @@ for i in range(len(data_cafe_craw)):
     index_2 = sample.find('추정나이')
 
     if index_1 != -1 and index_2 != -1:
-        data_cafe_craw.at[i, '성별'] = sample[index_1 +5 :index_2]
-
+        data_cafe_craw.at[i, '성별'] = sample[index_1 + 5:index_2]
 
 # '성격 및 기타 특징' 정보를 '텍스트'에서 추출
 for i in range(len(data_cafe_craw)):
     sample = data_cafe_craw['텍스트'][i]
     index_1 = sample.find('성격 및 기타 특징')
-    index_2 = sample.find('기다립니다.')   # 양식 상 유튜브 링크가 나오기 전까지
+    index_2 = sample.find('기다립니다.')  # 양식 상 유튜브 링크가 나오기 전까지
 
     if index_1 != -1 and index_2 != -1:
-        data_cafe_craw.at[i, '성격 및 기타 특징'] = sample[index_1 +12 : index_2 +6]
-
+        data_cafe_craw.at[i, '성격 및 기타 특징'] = sample[index_1 + 12: index_2 + 6]
 
 # '성별' 열에서 중성화 여부를 파악하여 추가
 for i in range(len(data_cafe_craw)):
@@ -223,18 +208,16 @@ for i in range(len(data_cafe_craw)):
         # 알 수 없는 경우
         data_cafe_craw.at[i, '중성화 여부'] = 'U'
 
-
 # '성별' 정보를 간소화 (암컷 -> F, 수컷 -> M, 알 수 없음 -> Q)
 for i in range(len(data_cafe_craw)):
     sample = data_cafe_craw['성별'][i]
 
-    if '암컷'in sample:
-      data_cafe_craw.at[i, '성별'] = 'F'
+    if '암컷' in sample:
+        data_cafe_craw.at[i, '성별'] = 'F'
     elif '수컷' in sample:
-      data_cafe_craw.at[i, '성별'] = 'M'
+        data_cafe_craw.at[i, '성별'] = 'M'
     else:
-      data_cafe_craw.at[i, '성별'] = 'Q'
-
+        data_cafe_craw.at[i, '성별'] = 'Q'
 
 # '추정나이' 정보를 '텍스트'에서 추출
 for i in range(len(data_cafe_craw)):
@@ -243,8 +226,7 @@ for i in range(len(data_cafe_craw)):
     index_2 = sample.find('성격')
 
     if index_1 != -1 and index_2 != -1:
-      data_cafe_craw.at[i, '나이'] = sample[index_1+4:index_2].replace(" ",'').replace(":",'').replace('현재','')
-
+        data_cafe_craw.at[i, '나이'] = sample[index_1 + 4:index_2].replace(" ", '').replace(":", '').replace('현재', '')
 
 # 현재 연도를 기준으로 출생 연도를 계산하고 '나이' 정보를 업데이트
 current_year = datetime.now().year
@@ -257,10 +239,9 @@ for i in range(len(data_cafe_craw)):
         # 출생 날짜 변환
         birth_date = datetime.strptime(cleaned_sample, '%Y.%m.%d')
         age_in_days = (datetime.now() - birth_date).days
-        age = age_in_days / 365.25      # 나이를 연 단위로 계산
+        age = age_in_days / 365.25  # 나이를 연 단위로 계산
         data_cafe_craw.at[i, '출생연도'] = birth_date.strftime('%Y.%m')
         data_cafe_craw.at[i, '나이'] = round(age, 1)
-
 
 # 'data_cafe_craw' 데이터프레임에서 '나이' 컬럼을 기반으로 출생연도를 계산
 # 나이는 변동, 출생연도는 변동하지 않음으로 전체 데이터에서 출생연도를 기반으로 하기로 결정
@@ -302,7 +283,6 @@ for i in range(len(data_cafe_craw)):
             # 위 조건 중 어느 것도 해당되지 않는 경우, 기존 '출생연도' 값 유지
             data_cafe_craw.at[i, '출생연도'] = data_cafe_craw.at[i, '출생연도']
 
-
 # '성격 및 기타 특징'에서 URL 제거
 for i in range(len(data_cafe_craw)):
     sample = data_cafe_craw['성격 및 기타 특징'][i]
@@ -316,29 +296,26 @@ for i in range(len(data_cafe_craw)):
                     data_cafe_craw.at[i, '성격 및 기타 특징'] = sample[:index_trait] + sample[j:]
                     break
 
-
 # '나이' 열을 숫자로 변환하고 새로운 열 생성
 data_cafe_craw['나이_숫자'] = data_cafe_craw['나이'].str.extract(r'(\d+)').astype(float)
 data_cafe_craw['나이_조정'] = data_cafe_craw.apply(
-    lambda row: row['나이'] if pd.isna(row['나이_숫자']) else round(row['나이_숫자'] / 12, 1) if '개월' in row['나이'] else row['나이_숫자'],
+    lambda row: row['나이'] if pd.isna(row['나이_숫자']) else round(row['나이_숫자'] / 12, 1) if '개월' in row['나이'] else row[
+        '나이_숫자'],
     axis=1)
 
-
 # 불필요한 열 삭제
-columns_to_drop = ['date','제목','텍스트', '나이', '나이_숫자']
+columns_to_drop = ['date', '제목', '텍스트', '나이', '나이_숫자']
 data_cafe_craw = data_cafe_craw.drop(columns=columns_to_drop, axis=1)
-
 
 # '나이_조정' 컬럼을 '나이'로 변경
 data_cafe_craw.rename(columns={'나이_조정': '나이'}, inplace=True)
 
-
 # '입양여부' 열 추가 : 네이버 카페의 입양완료 게시판의 크롤링 데이터 이므로 모두 Y로 처리
 data_cafe_craw['입양여부'] = 'Y'
 
-
 # '세부견종' 열 추가 및 초기화
 data_cafe_craw['세부견종'] = ''
+
 
 # '견종' 데이터를 기반으로 '세부견종' 분리 함수 정의
 def extract_sub_breeds(row):
@@ -366,7 +343,6 @@ def extract_sub_breeds(row):
 # '견종'과 '세부견종' 분리 적용
 data_cafe_craw[['견종', '세부견종']] = data_cafe_craw.apply(lambda row: pd.Series(extract_sub_breeds(row)), axis=1)
 
-
 # '견종' 컬럼의 오타 수정을 위한 전처리
 data_cafe_craw['견종'] = data_cafe_craw['견종'].str.replace(r'\s+', '', regex=True)
 
@@ -381,7 +357,6 @@ cleaned_breeds = {
 }
 data_cafe_craw['견종'] = data_cafe_craw['견종'].replace(cleaned_breeds)
 
-
 # '세부견종'에서 불필요한 문자 제거 및 정리
 data_cafe_craw['세부견종'] = (
     data_cafe_craw['세부견종']
@@ -390,7 +365,6 @@ data_cafe_craw['세부견종'] = (
     .str.replace(r'\s', '', regex=True)  # 띄어쓰기 제거 (정규식 사용ㅇ)
     .str.replace('.*=', '', regex=True)  # '=' 포함 문자열 제거
 )
-
 
 # '세부견종'의 일부 데이터를 통일된 이름으로 대체
 replace_dict = {
@@ -416,7 +390,6 @@ data_cafe_craw['세부견종'] = data_cafe_craw['세부견종'].replace(r'^\s*$'
 # '견종'이 '믹스'이고 '세부견종'이 비어있다면 '세부견종'을 '믹스'로 채우기
 data_cafe_craw.loc[(data_cafe_craw['견종'] == '믹스') & (data_cafe_craw['세부견종'].isnull()), '세부견종'] = '믹스'
 
-
 # '성격 및 기타 특징'컬럼 에서 색상 정보 추출
 for i in range(len(data_cafe_craw)):
     sample = data_cafe_craw['성격 및 기타 특징'][i]
@@ -441,7 +414,6 @@ for i in range(len(data_cafe_craw)):
     # '색상' 컬럼에 색상 정보 저장 (색상 정보가 없으면 'Unknown'으로 처리)
     data_cafe_craw.at[i, '색상'] = color_string if color_string else 'Unknown'
 
-
 # 특정 조건에 따라 색상 데이터 보완
 # '종'이 말티즈이고, 색상이 비어 있으면 'White'로 설정
 for i in range(len(data_cafe_craw)):
@@ -452,30 +424,24 @@ for i in range(len(data_cafe_craw)):
     if breed == '말티즈' and sub_breed == '말티즈' and pd.isna(color):
         data_cafe_craw.at[i, '색상'] = 'White'
 
-
 # 카페 게시글에서는 체중에 대한 정확한 수치를 확인 불가
-# TODO : 논의 필요, 평균값을 해치지 않기 위해 7.16 kg으로 값을 할당 (총 231개의 데이터)
+# 평균값을 해치지 않기 위해 7.16 kg으로 값을 할당 (총 231개의 데이터)
 data_cafe_craw['체중'] = 7.16
-
 
 # 모든 문자열 컬럼에 대해 strip 적용
 for col in data_cafe_craw.select_dtypes(include=['object']).columns:  # 문자열 데이터 타입 선택
     data_cafe_craw[col] = data_cafe_craw[col].map(lambda x: x.strip() if isinstance(x, str) else x)
 
-
 # '성격 및 기타 특징' 컬럼명을 '특징'으로 변경
 data_cafe_craw = data_cafe_craw.rename(columns={'성격 및 기타 특징': '특징'})
-
 
 # 컬럼 순서 재배치
 columns_order = ['이름', '견종', '세부견종', '색상', '출생연도', '나이', '체중', '썸네일',
                  '입양여부', '성별', '중성화 여부', '특징', '보호장소']
 data_cafe_craw = data_cafe_craw[columns_order]
 
-
 # 최종 데이터프레임을 CSV로 저장
 data_cafe_craw.to_csv(output_csv_file, encoding='utf-8-sig', index=False)
-
 
 # 처리된 요소 수 출력
 num_elements = len(data_cafe_craw)

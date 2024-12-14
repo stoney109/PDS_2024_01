@@ -55,8 +55,10 @@ def process_file(input_file, output_file):
 
     # 전처리 결과 분리 및 병합
     # 각 열에 대해 'cleaned_text', 'corrected_text', 'filtered_text' 데이터를 저장
-    # TODO : 전처리 이후, 사용할 컬럼만 남기도록 코드 추가가 필요함
     data['cleaned_text'], data['corrected_text'], data['filtered_text'] = zip(*results)
+
+    # cleaned_text와 corrected_text 컬럼 제거
+    data.drop(['cleaned_text', 'corrected_text'], axis=1, inplace=True)
 
     # 전처리 결과를 CSV 파일로 저장
     data.to_csv(output_file, index=False, encoding='utf-8-sig')
