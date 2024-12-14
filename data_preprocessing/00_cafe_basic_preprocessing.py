@@ -446,5 +446,3 @@ data_cafe_craw.to_csv(output_csv_file, encoding='utf-8-sig', index=False)
 # 처리된 요소 수 출력
 num_elements = len(data_cafe_craw)
 print(f'처리된 데이터의 수: {num_elements}개')
-
-print(data_cafe_craw.isnull().sum())
