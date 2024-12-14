@@ -17,7 +17,6 @@ def generate_wordcloud(texts, title, font_path='C:/Windows/Fonts/malgun.ttf', ba
     combined_text = ' '.join(texts)
 
 
-    # 빈도수가 3 이상인 특징에 나타나는 단어를 시각화 해서 보고 싶을 때
     # 단어 빈도수 계산 및 빈도수 10 이상 단어 필터링
     word_counts = Counter(combined_text.split())
     filtered_text = ' '.join([word for word, count in word_counts.items() if count > 10])
@@ -63,9 +62,9 @@ def read_csv_column(file_path, column_name, encoding='utf-8-sig'):
 
 if __name__ == "__main__":
     # 두 CSV 파일 경로 및 사용할 열 이름
-    adopted_csv_path = '../resource/trait_preprocessing.csv'  # 입양된 데이터 경로
-    unadopted_csv_path = '../resource/trait_unadopted_preprocessing.csv'  # 입양되지 않은 데이터 경로
-    column_name = 'filtered_text'  # 분석할 열 이름
+    adopted_csv_path = '../resource/gpt_preprocessed_data/gpt_adopted_data.csv'  # 입양된 데이터 경로
+    unadopted_csv_path = '../resource/gpt_preprocessed_data/gpt_unadopted_data.csv'  # 입양되지 않은 데이터 경로
+    column_name = 'GPT_특성'  # 분석할 열 이름
 
     # 두 데이터 읽기
     adopted_data = read_csv_column(adopted_csv_path, column_name)

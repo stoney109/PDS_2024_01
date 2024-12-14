@@ -76,7 +76,7 @@ try: # 데이터 불러오기
     process_colors_pie(unadopted_data, 'Unadopted Top 10 Colors', axes[1], color_mapping)
 
     plt.tight_layout()
-    plt.show()
+
 
     # 저장 경로 설정
     os.makedirs("visualization_png", exist_ok=True)  # 폴더 생성
@@ -85,6 +85,8 @@ try: # 데이터 불러오기
     # 그래프 저장
     plt.savefig(save_path, dpi=300, bbox_inches='tight')
     print(f"그래프가 저장되었습니다: {save_path}")
+
+    plt.show() # 그래프 출력
 
 except FileNotFoundError: # 파일 경로를 찾지 못할 경우
     print("CSV 파일 경로를 확인하세요.")

@@ -16,7 +16,7 @@ def plot_weight_histogram(adopted_data, unadopted_data):
 
     # 데이터 정리 (20 이하로 필터링 - 아웃라이어들 제거)
     adopted_weight = adopted_data[adopted_data['체중'] <= 20]['체중']
-    unadopted_weight = unadopted_data[unadopted_data['체중'] <= 20]['체중']
+    unadopted_weight = unadopted_data[unadopted_data['체중'] <=20 ]['체중']
 
     # 히스토그램 생성
     fig, ax = plt.subplots(figsize=(10, 6))
@@ -49,7 +49,7 @@ def plot_weight_histogram(adopted_data, unadopted_data):
     ax.legend()
 
     plt.tight_layout() # 레이아웃 자동 조정
-    plt.show() # 그래프 출력
+
 
     # 저장 경로 설정
     os.makedirs("visualization_png", exist_ok=True)  # 폴더가 없으면 생성
@@ -58,6 +58,8 @@ def plot_weight_histogram(adopted_data, unadopted_data):
     # 히스토그램 저장
     plt.savefig(save_path, dpi=300, bbox_inches='tight')
     print(f"히스토그램이 저장되었습니다: {save_path}")
+
+    plt.show()  # 그래프 출력
 
 
 # 두 CSV 파일 경로

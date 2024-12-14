@@ -16,10 +16,10 @@ def generate_wordcloud(texts, title, font_path='C:/Windows/Fonts/malgun.ttf', ba
     # 텍스트 합치기
     combined_text = ' '.join(texts)
 
-    # 빈도수가 3 이상인 모든 견종을 시각화 해서 보고 싶을 때
-    # 단어 빈도수 계산 및 빈도수 3 이상 단어 필터링
+    # 빈도수가 7 이상인 모든 견종을 시각화 해서 보고 싶을 때
+    # 단어 빈도수 계산 및 빈도수 7 이상 단어 필터링
     word_counts = Counter(combined_text.split())
-    filtered_text = ' '.join([word for word, count in word_counts.items() if count > 3])
+    filtered_text = ' '.join([word for word, count in word_counts.items() if count >7 ])
 
     # 워드클라우드 생성
     wordcloud = WordCloud(font_path=font_path, background_color=background_color).generate(filtered_text)
