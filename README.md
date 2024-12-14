@@ -44,18 +44,14 @@
    - 전처리 과정을 함수화하여 코드 효율성 증대.
    - 추가 특징 데이터 전처리:
      - 텍스트 데이터 토큰화.
-     - 감성 분석.
 
 3. **시각화 개선**
    - 인사이트 중심의 시각화 방식 추가.
    - 기존 시각화 코드 함수화 및 다양한 시각화 기법 적용.
 
-4. **분류 모델 개발**
-   - 유기견 입양 특성 분류 모델 구현:
-     - Decision Tree.
-     - Logistic Regression.
-     - K-Nearest Neighbors (K-NN).
-   - 모델 성능 비교 및 최적화.
+4. **모델**
+   - 감성분석 모델 활용
+   - 유기견 입양 특성 분류 모델 구현 ( Decision Tree )
 
 ---
 
@@ -64,7 +60,7 @@
 - **언어**: Python
 - **라이브러리**: 
   - 데이터 처리: pandas, NumPy.
-  - 시각화: Matplotlib, Seaborn,WordCloud
+  - 시각화: Matplotlib,WordCloud
   - 머신러닝: Scikit-learn
   - 텍스트 처리: NLTK, spaCy
 
@@ -72,13 +68,26 @@
 ---
 
 ## 📂 **프로젝트 구조**
-```plaintext
-your-project/
-├── src/
-│   ├── main.py
-│   ├── utils/
-│   └── ...
-├── docs/
-├── tests/
-├── README.md
-└── ...
+PDS_2024_01/
+├── data_crawling/               # 데이터 수집 관련 코드 및 스크립트
+│   └── ...                      # Naver Cafe, 농림 Api, 서울복지지원센터 Api 크롤링 코드
+│
+├── data_preprocessing/          # 데이터 전처리 관련 코드
+│   └── ...                      # 결측값 처리, 데이터 정제 등
+│
+├── models_disition_tree/        # Decision Tree 모델 관련 코드 및 결과
+│   └── ...                      # 모델 학습 코드와 결과 저장
+│
+├── resource/                    # 프로젝트 리소스 (데이터)
+│   └── ...                      
+│
+├── visualization/               # 시각화 관련 코드 및 결과
+│   ├── ...                      # 시각화를 위한 파이썬 코드 ( 막대그래프,히스토그램,원형그래프,워드클라우드 등)
+│   ├── visualization_png/       # 생성된 시각화 이미지 저장 폴더
+│   │   └── ...                  # PNG 시각화 결과물
+│   
+│
+├── docs/                        # 각 브랜치별 설명과 문서
+│   └── ...                      # 프로젝트 구조 및 사용법 문서화
+│
+├── README.md                    # 프로젝트 개요 및 사용법
