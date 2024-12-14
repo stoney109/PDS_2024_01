@@ -49,8 +49,9 @@
 **목적:** 데이터셋 내 몸무게 분포를 시각화하여 주요 범위를 파악.
 
 **세부 사항:**
-- 20 이하로 필터링하여 아웃라이어들 제거
+- 히스토그램으로 몸무게의 빈도 분포를 시각화
 - 투명도를 조절하여 adopted와 unadopted 데이터를 한눈에 시각화
+- 20 이하로 필터링하여 아웃라이어들 제거
 ![histogram_weight](https://github.com/user-attachments/assets/1085ce2d-e6b0-4090-aae4-14645ff24749)
 
 
@@ -84,7 +85,7 @@
 
 **세부 사항:**
 - 종 데이터를 텍스트로 변환.
-- 워드 클라우드를 통해 빈도가 7이상인 종들을 시각화
+- 워드 클라우드를 통해 빈도가 7 이상인 종들을 시각화
 ![wordcloud_species](https://github.com/user-attachments/assets/569023e8-8f4e-4bf4-819e-6605fe5a10d8)
 
 
