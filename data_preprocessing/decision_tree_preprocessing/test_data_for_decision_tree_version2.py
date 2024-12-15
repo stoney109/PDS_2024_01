@@ -22,8 +22,8 @@ def preprocess_dog_data(file_path):
     # 성별이 Q 또는 중성화 여부가 U인 데이터 제외
     filtered_data = data[(data['성별'] != 'Q') & (data['중성화 여부'] != 'U')]
 
-    # 랜덤으로 20,000건의 데이터 가져오기
-    sampled_data = filtered_data.sample(n=20000, random_state=42)
+    # 랜덤으로 10,000건의 데이터 가져오기
+    sampled_data = filtered_data.sample(n=10000, random_state=42)
 
     # 전처리를 위해 필요한 컬럼만 추출
     selected_columns = sampled_data[['견종', '나이', '체중', '성별', '중성화 여부', '입양여부']].copy()
@@ -58,7 +58,7 @@ def preprocess_dog_data(file_path):
     return processed_data
 
 file_path = '../../resource/final_unadopted_data.csv'
-processed_file_path = 'test_data/test_data_decision_tree_version2.csv'
+processed_file_path = '../../resource/decision_tree_preprocessed_data/test_data/test_data_decision_tree_version2.csv'
 
 # 데이터 전처리 및 저장
 processed_data = preprocess_dog_data(file_path)

@@ -1,4 +1,4 @@
-#모델의 성능을 테스트하기 위한 test_data를 전처리 하는 코드입니다
+#샘플 데이터 (모델을 학습하기 위한 데이터)_apoted_data에서 추출
 #disition tree를 사용하기 위해서는 x데이터를 수치형 데이터로 전처리
 #disiton tree를 이용하실 때, final_00 컬럼을 사용하시면 됩니다
 '''
@@ -16,13 +16,17 @@ import numpy as np
 import random
 
 def preprocess_dog_data(file_path):
-    #랜덤으로 2만건의 데이터 가져오기
+    #랜덤을 1만건의 데이터를 가져오기
     data = pd.read_csv(file_path)
     data = data.sample(frac=1, random_state=random.randint(1, 10000))
-    selected_data = data.head(20000)
+    selected_data = data.head(10000)
 
     # 전처리를 위해 원본 데이터 복사하기
     selected_columns = selected_data[['견종', '나이', '체중', '성별', '중성화 여부', '입양여부']].copy()
+
+    #성별과 중성화 여부에 결측치가 있을 시 제외하고 가져오기
+    selected_columns = selected_columns[selected_columns['성별'].notna()]
+    selected_columns = selected_columns[selected_columns['중성화 여부'].notna()]
 
     # 견종 전처리
     selected_columns['견종'] = np.where(selected_columns['견종'] == '믹스', 0, 1)
@@ -53,8 +57,8 @@ def preprocess_dog_data(file_path):
 
     return processed_data
 
-file_path = '../../resource/final_unadopted_data.csv'
-processed_file_path = 'test_data/test_data_decision_tree.csv'
+file_path = '../../resource/final_adopted_data.csv'
+processed_file_path = '../../resource/decision_tree_preprocessed_data/sample_data/sample_data_decision_tree.csv'
 
 processed_data = preprocess_dog_data(file_path)
 

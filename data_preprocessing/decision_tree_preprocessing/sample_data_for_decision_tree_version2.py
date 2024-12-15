@@ -15,7 +15,7 @@ x데이터 해석
 
 import pandas as pd
 
-file_path = '../../resource/final_unadopted_data.csv'
+file_path = '../../resource/final_adopted_data.csv'
 
 original_data = pd.read_csv(file_path)
 
@@ -45,7 +45,7 @@ processed_data['중성화 여부'] = processed_data['중성화 여부'].apply(la
 
 final_data = sampled_data.copy()
 for column in processed_data.columns:
-    final_data[f"전처리_{column}"] = processed_data[column]
+    final_data[f"final_{column}"] = processed_data[column]
 
 #결과 저장
-final_data.to_csv('sample_data/sample_data_decision_tree_version2.csv', index=False)
+final_data.to_csv('../../resource/decision_tree_preprocessed_data/sample_data/sample_data_decision_tree_version2.csv', index=False)
