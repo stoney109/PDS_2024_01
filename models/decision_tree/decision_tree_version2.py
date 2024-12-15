@@ -59,7 +59,7 @@ error_rate = 1 - accuracy
 f1 = f1_score(y_test, y_pred, pos_label=1)
 
 # 피처 중요도 추출
-feature_importances = clf.feature_importances_
+feature_importances = model.feature_importances_
 
 # 피처 중요도를 데이터프레임으로 정리
 importance_df = pd.DataFrame({
