@@ -57,6 +57,16 @@ error_rate = 1 - accuracy
 # F1 Score
 f1 = f1_score(y_test, y_pred, pos_label=1)
 
+# 피처 중요도 추출
+feature_importances = model.feature_importances_
+
+# 피처 중요도를 데이터프레임으로 정리
+importance_df = pd.DataFrame({
+    'Feature': independent_columns,
+    'Importance': feature_importances
+}).sort_values(by='Importance', ascending=False)
+
+
 # 결과 출력
 print(f"Confusion Matrix:\n{conf_matrix}")
 print(f"Accuracy: {accuracy:.2f}")
@@ -65,3 +75,5 @@ print(f"Specificity: {specificity:.2f}")
 print(f"Recall / Sensitivity: {sensitivity:.2f}")
 print(f"Error Rate: {error_rate:.2f}")
 print(f"F1 Score: {f1:.2f}")
+print("Feature Importances:")
+print(importance_df)
