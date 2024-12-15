@@ -58,7 +58,7 @@ def preprocess_dog_data(file_path):
     return processed_data
 
 file_path = '../../resource/final_unadopted_data.csv'
-processed_file_path = 'test_data/test_data_disition_tree_version2.csv'
+processed_file_path = 'test_data/test_data_decision_tree_version2.csv'
 
 # 데이터 전처리 및 저장
 processed_data = preprocess_dog_data(file_path)
