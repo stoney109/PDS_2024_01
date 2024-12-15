@@ -19,7 +19,8 @@
 
 ### **모델 생성**
 - **🧩 sklearn**: Decision Tree 모델 생성 및 성능 지표 계산 
-- **📚 KoBERT** : 텍스트의 감성 분석 진행 
+- **📚 transformers**: 자연어 처리 모델 활용 (koBERT).
+- **🔥 torch**: PyTorch를 사용한 딥러닝 계산.
 
 ---
 
