@@ -133,7 +133,7 @@
 
 - **resource**  
   ➡️ 프로젝트 데이터셋 및 리소스.
-  ([resourceNote]((https://github.com/stoney109/PDS_2024_01/blob/main/resource/resourceNote.md)))
+  ([resourceNote](https://github.com/stoney109/PDS_2024_01/blob/main/resource/resourceNote.md))
 
 
 
