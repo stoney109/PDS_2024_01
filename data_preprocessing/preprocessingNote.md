@@ -239,10 +239,9 @@
   - `adopted_data_for_decision_tree_version2.py`:
     - 동일한 샘플링 방식으로 데이터 추출.
     - Q 및 U 값을 가진 데이터를 제외.
-    - 나이와 체중의 소수 자릿수 유지
+    - 나이와 체중의 소수점 첫째 자릿수 유지
       - 성별: M(0), F(1).
       - 중성화 여부: Y(0), N(1).
-      - 나이와 체중: 소수점 첫째 자리까지 유지.
 - **출력 파일**:
   - `adopted_data_for_dt_version1.csv`: 버전 1 데이터 전처리 결과.
   - `adopted_data_for_dt_version2.csv`: 버전 2 데이터 전처리 결과.
@@ -266,10 +265,9 @@
   - `undopted_data_for_decision_tree_version1.py`:
     - 동일한 샘플링 방식으로 데이터 추출.
     - Q 및 U 값을 가진 데이터를 제외.
-    - - 나이와 체중의 소수 자릿수 유지
+    - - 나이와 체중의 소수점 첫째 자릿수 유지
       - 성별: M(0), F(1).
       - 중성화 여부: Y(0), N(1).
-      - 나이와 체중: 소수점 첫째 자리까지 유지.
 - **출력 파일**:
   - `unadopted_data_for_dt_version1.csv`: 버전 1 데이터 전처리 결과.
   - `unadopted_data_for_dt_version2.csv`: 버전 2 데이터 전처리 결과
