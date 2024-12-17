@@ -115,7 +115,7 @@
 - **주요 작업**:
   - 텍스트 데이터 정제 : 특수문자 및 불필요한 표현 제거.
   - 크롤링 텍스트 및 제목을 통해 정보를 추출하고, `보호장소`, `견종`, `성별`, `나이`, `중성화 여부` 등의 컬럼을 새로 생성.
-  - 입양 상태를 모두 `Y`로 설정 :네이버 카페의 입양완료 게시판의 크롤링 데이터 이므로, 모든 데이터에 입양여부를 Y로 설정.
+  - 입양 상태를 모두 `Y`로 설정 :네이버 카페의 입양완료 게시판의 크롤링 데이터이므로, 모든 데이터에 입양여부를 Y로 설정.
   - 세부 견종 분리 및 데이터 형태 통일.
 - **출력 파일**:
   - `cafe_base_preprocessing.csv`: 정리된 카페 데이터. 이후 통합 파일인 result_all_data.csv에 병합됨.
@@ -130,7 +130,7 @@
 - **설명**: 통합 데이터(`result_all_data.csv`, `gpt_result_all_data.csv`)에서 입양 여부(`입양여부`)를 기준으로 데이터를 분리하여 추후 시각화 및 분석에 맞게 전처리.
 - **출력 파일**:
   - `gpt_adopted_data.csv`, `final_adopted_data.csv`: 입양된 데이터.
-  - `gpt_unadopted_data.csv`, `final_adopted_data.csv`: 입양되지 않은 데이터.
+  - `gpt_unadopted_data.csv`, `final_unadopted_data.csv`: 입양되지 않은 데이터.
 
 
 ---
@@ -147,7 +147,7 @@
 - **출력 파일**:
   - `gpt_trait_data.csv`: 총 6,280개의 데이터, GPT 기반 전처리 결과.
 
-#### `trait_preprocessing/02_gpt_text_procesing.py`
+#### `trait_preprocessing/02_gpt_text_processing.py`
 
 - **설명**: GPT 전처리 데이터를 추가적으로 전처리하여 `특징` 데이터에 대한 추가 전처리 진행.
 - **주요 작업**:
@@ -262,7 +262,7 @@
       - 체중: 반올림.
       - 성별: M(0), F(1), Q(2).
       - 중성화 여부: Y(0), N(1), U(2).
-  - `undopted_data_for_decision_tree_version1.py`:
+  - `unadopted_data_for_decision_tree_version1.py`:
     - 동일한 샘플링 방식으로 데이터 추출.
     - Q 및 U 값을 가진 데이터를 제외.
     - - 나이와 체중의 소수점 첫째 자릿수 유지
