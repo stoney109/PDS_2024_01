@@ -8,10 +8,10 @@ file_path = '../../resource/gpt_preprocessed_data/gpt_result_all_data.csv'
 data = pd.read_csv(file_path, encoding='utf-8-sig')
 
 # 'GPT_특성_변환' 컬럼에서 NaN 값 제거
-data = data.dropna(subset=['GPT_특성_변환'])
+data = data.dropna(subset=['GPT_특성'])
 
 # 쉼표로 나눈 후 평탄화
-traits = data['GPT_특성_변환'].str.split(', ').explode()
+traits = data['GPT_특성'].str.split(', ').explode()
 
 # 특성별 빈도 계산
 trait_counts = Counter(traits)
