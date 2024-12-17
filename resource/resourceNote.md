@@ -48,13 +48,15 @@
 ### 🌳 **decision_tree_preprocessed_data** 폴더
 1. **merged_version1.csv / merged_version2.csv**
 
-   : 
-2. **cafe_crawling_20231116.csv**
+   : 입양 된 데이터와 입양되지 않은 데이터를 합한 총 데이터입니다.
 
-   : 
-3. **nonglim_crawling_2024.csv**
+2. **adopted_data_for_dt_version1.csv / adopted_data_for_dt_version2.csv **
 
-   : 
+   : 입양 된 데이터에서 decision tree를 위한 전처리를 수행한 데이터입니다.
+
+3. **unadopted_data_for_dt_version1.csv / unadopted_dat_for_dt_version2.csv**
+
+   : 입양 되지 않은 데이터에서 decision tree를 위한 전처리를 수행한 데이터입니다.
 
 ---
 
