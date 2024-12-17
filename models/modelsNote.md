@@ -99,7 +99,9 @@ Decision Tree는 데이터 기반 의사 결정을 위한 머신러닝 알고리
 | 3    | final_중성화 여부   | 0.023688   |
 | 4    | final_성별          | 0.002540   |
 
-![decision_tree1](KakaoTalk_20241217_170229443.png)
+
+![decisiontree_origin](https://github.com/user-attachments/assets/21a2e920-9672-411d-87aa-957465834057)
+
 
 ### version1 결과
 - version 1 에서는 견종이 가장 영향이 큼
