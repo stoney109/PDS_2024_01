@@ -37,8 +37,8 @@ Decision Tree는 데이터 기반 의사 결정을 위한 머신러닝 알고리
 - **목표**: 유기견의 견종, 나이, 체중, 성별, 중성화 여부를 기준으로 **입양 여부**를 분류합니다.
 
 #### **사용 데이터**
-1. `sample_data_decision_tree.csv` (버전 1) 
-2. `sample_data_decision_tree_version2.csv` (버전 2) : **나이와 체중의 소수점 자릿수 유지, 미상 데이터 제거**
+1. `sample_data_decision_tree.csv` (버전 1) : **나이와 체중의 소수점 제거**
+2. `sample_data_decision_tree_version2.csv` (버전 2) : **성별,중성화 여부 미상 데이터 제거**
 
 
 
