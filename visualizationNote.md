@@ -40,7 +40,7 @@
 **세부 사항:**
 - 히스토그램으로 나이의 빈도 분포를 시각화.
 - 투명도를 조절하여 adopted와 unadopted 데이터를 한눈에 시각화
-- 데이터를 0이상 10이하로 필터링하여 아웃라이어 제거
+- 데이터를 0이상 10이하로 필터링
 ![histogram_age](https://github.com/user-attachments/assets/310cc4ac-90fa-4d71-9478-b536e35a75e5)
 
 
@@ -53,7 +53,7 @@
 **세부 사항:**
 - 히스토그램으로 몸무게의 빈도 분포를 시각화
 - 투명도를 조절하여 adopted와 unadopted 데이터를 한눈에 시각화
-- 20 이하로 필터링하여 아웃라이어들 제거
+- 20 이하로 필터링
 ![histogram_weight](https://github.com/user-attachments/assets/1085ce2d-e6b0-4090-aae4-14645ff24749)
 
 
