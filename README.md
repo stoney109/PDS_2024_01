@@ -117,22 +117,23 @@
 ## 📂 **프로젝트 구조**
 - **data_crawling**  
   ➡️ Naver Cafe, 농림 API, 서울복지지원센터 API 크롤링 코드.
-  ([data_crawling](https://github.com/stoney109/PDS_2024_01/blob/main/data_crawling/crawlingNote.md))
+  ([crawlingNote](https://github.com/stoney109/PDS_2024_01/blob/main/data_crawling/crawlingNote.md))
 
 - **data_preprocessing**  
   ➡️ 결측값 처리, 데이터 정제 및 전처리 코드.
-  ([data_preprocessing](https://github.com/stoney109/PDS_2024_01/blob/main/data_preprocessing/preprocessingNote.md))
+  ([preprocessingNote](https://github.com/stoney109/PDS_2024_01/blob/main/data_preprocessing/preprocessingNote.md))
 
 - **visualization**  
   ➡️ 데이터 시각화 스크립트 및 결과.
-  ([visualization](https://github.com/stoney109/PDS_2024_01/blob/main/visualization/visualizationNote.md))
+  ([visualizationNote](https://github.com/stoney109/PDS_2024_01/blob/main/visualization/visualizationNote.md))
 
 - **models**  
   ➡️ Decision Tree 모델 학습 및 결과와 koBERT 사전 학습 모델 사용 결과 저장.
-  ([models](https://github.com/stoney109/PDS_2024_01/blob/main/models/modelsNote.md))
+  ([modelsNote](https://github.com/stoney109/PDS_2024_01/blob/main/models/modelsNote.md))
 
 - **resource**  
   ➡️ 프로젝트 데이터셋 및 리소스.
+  ([resourceNote]((https://github.com/stoney109/PDS_2024_01/blob/main/resource/resourceNote.md)))
 
 
 
