@@ -86,6 +86,8 @@ Decision Tree는 데이터 기반 의사 결정을 위한 머신러닝 알고리
 | 3    | final_성별          | 0.068336   |
 | 4    | final_중성화 여부   | 0.058658   |
 
+![decision_tree1](https://github.com/user-attachments/assets/f8b2a12b-492b-4022-91c6-0d05a2906f01)
+
 
 ### version2 결과
 - version 2 에서는 나이가 가장 영향이 큼
@@ -97,6 +99,8 @@ Decision Tree는 데이터 기반 의사 결정을 위한 머신러닝 알고리
 | 2    | final_건종          | 0.231993   |
 | 3    | final_성별          | 0.064764   |
 | 4    | final_중성화 여부   | 0.009151   |
+
+![decision_tree2](https://github.com/user-attachments/assets/9033aa00-fba3-40a4-8f9e-6aea4ec76b39)
 
 
 ---
