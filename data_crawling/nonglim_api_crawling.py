@@ -55,22 +55,39 @@ def fetch_data(page_number):
             # 데이터 추출
             page_data = []
 
+            #for 문을 돌며 필요한 데이터 수집
             for sample in dog_information_area:
+                # 유기번호
                 abandoned_id = sample.select_one('desertionNo').text
+                # 국가동물정보보호시스템에 등록된 접수일 기준
                 happen_date = sample.select_one('happenDt').text
+                # 발견 장소
                 happen_place = sample.select_one('happenPlace').text
+                # 품종
                 kind = sample.select_one('kindCd').text
+                # 색상
                 color = sample.select_one('colorCd').text
+                # 나이
                 age = sample.select_one('age').text
+                # 체중
                 weight = sample.select_one('weight').text
+                # 유기 공고 시작일
                 notice_start = sample.select_one('noticeSdt').text
+                # 유기 공고 종료일
                 notice_end = sample.select_one('noticeEdt').text
+                # 이미지
                 picture = sample.select_one('popfile').text
+                # 보호상태(e.g. 보호중)
                 process_state = sample.select_one('processState').text
+                # 성별(M: 수컷, F:암컷, Q:미상)
                 sex = sample.select_one('sexCd').text
+                # 중성화여부 (Y: 예, N: 아니오, U: 미상)
                 neutral = sample.select_one('neuterYn').text
+                # 특징
                 special = sample.select_one('specialMark').text
+                # 보호소이름(e.g. 이기영수의과병원)
                 care_center_name = sample.select_one('careNm').text
+                # 보호장소(e.g. 충청남도 공주시 감영길 7 (반죽동))
                 care_center_address = sample.select_one('careAddr').text
 
                 page_data.append([abandoned_id, happen_date, happen_place, kind, color, age, weight, notice_start, notice_end,
@@ -139,7 +156,7 @@ if __name__ == "__main__":
         })
 
         # 최종 CSV 저장
-        output_filename = '../resource/crawing_data/nonglim_crawling_2024_new.csv'
+        output_filename = '../resource/crawling_data/nonglim_crawling_2024.csv'
         df_selected.to_csv(output_filename, encoding='utf-8-sig', index=False)
 
         print(f"크롤링 완료: 총 {len(result_info_out)}개 데이터를 수집했습니다.")

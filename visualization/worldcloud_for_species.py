@@ -16,10 +16,10 @@ def generate_wordcloud(texts, title, font_path='C:/Windows/Fonts/malgun.ttf', ba
     # 텍스트 합치기
     combined_text = ' '.join(texts)
 
-    # 빈도수가 3 이상인 모든 견종을 시각화 해서 보고 싶을 때
-    # 단어 빈도수 계산 및 빈도수 3 이상 단어 필터링
+    # 빈도수가 7 이상인 모든 견종을 시각화 해서 보고 싶을 때
+    # 단어 빈도수 계산 및 빈도수 7 이상 단어 필터링
     word_counts = Counter(combined_text.split())
-    filtered_text = ' '.join([word for word, count in word_counts.items() if count > 3])
+    filtered_text = ' '.join([word for word, count in word_counts.items() if count >7 ])
 
     # 워드클라우드 생성
     wordcloud = WordCloud(font_path=font_path, background_color=background_color).generate(filtered_text)
@@ -36,7 +36,7 @@ def generate_wordcloud(texts, title, font_path='C:/Windows/Fonts/malgun.ttf', ba
     return wordcloud
 
 
-def read_csv_column(file_path, column_name, encoding='euc-kr'):
+def read_csv_column(file_path, column_name, encoding='utf-8-sig'):
     """
     CSV 파일에서 특정 열의 데이터를 읽어옵니다.
 
@@ -65,15 +65,15 @@ if __name__ == "__main__":
     # 두 CSV 파일 경로 및 사용할 열 이름
     adopted_csv_path = '../resource/final_adopted_data.csv'  # 입양된 데이터 경로
     unadopted_csv_path = '../resource/final_unadopted_data.csv'  # 입양되지 않은 데이터 경로
-    column_name = '견종'  # 분석할 열 이름
+    column_name = '세부견종'  # 분석할 열 이름
 
     # 두 데이터 읽기
     adopted_data = read_csv_column(adopted_csv_path, column_name)
     unadopted_data = read_csv_column(unadopted_csv_path, column_name)
 
     # 워드클라우드 생성
-    adopted_wordcloud = generate_wordcloud(adopted_data,"Adopted_speices")
-    unadopted_wordcloud = generate_wordcloud(unadopted_data, "Unadopted_speices")
+    adopted_wordcloud = generate_wordcloud(adopted_data,"Adopted_feature")
+    unadopted_wordcloud = generate_wordcloud(unadopted_data, "Unadopted_feature")
 
     # 두 워드클라우드를 하나의 화면에 표시
     plt.figure(figsize=(16, 8))
@@ -89,4 +89,5 @@ if __name__ == "__main__":
     plt.axis('off') # 축과 눈금 제거
 
     plt.tight_layout()
+    plt.savefig("visualization_png/wordcloud_species.png", dpi=300, bbox_inches='tight')
     plt.show()

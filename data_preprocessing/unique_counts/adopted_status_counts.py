@@ -1,7 +1,7 @@
 import pandas as pd
 
 # CSV 파일 경로 설정
-input_csv_file = '../../resource/crawing_data/nonglim_crawling_20231116.csv'
+input_csv_file = '../../resource/crawling_data/nonglim_crawling_20231116.csv'
 
 # CSV 파일 읽기
 df = pd.read_csv(input_csv_file)

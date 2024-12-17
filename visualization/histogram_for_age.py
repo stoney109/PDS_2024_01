@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+import os
+
 
 def plot_age_histogram(adopted_data, unadopted_data):
     """
@@ -59,6 +61,16 @@ def plot_age_histogram(adopted_data, unadopted_data):
     ax.legend()  # 범례 추가
 
     plt.tight_layout()  # 레이아웃 조정
+
+
+    # 저장 경로 설정
+    os.makedirs("visualization_png", exist_ok=True)  # 폴더가 없으면 생성
+    save_path = "visualization_png/histogram_age.png"
+
+    # 히스토그램 저장
+    plt.savefig(save_path, dpi=300, bbox_inches='tight')
+    print(f"히스토그램이 저장되었습니다: {save_path}")
+
     plt.show()  # 그래프 출력
 
 
@@ -68,8 +80,8 @@ unadopted_csv_path = '../resource/final_unadopted_data.csv'  # 입양되지 않�
 
 # 데이터 읽기 및 시각화 호출
 try:
-    adopted_data = pd.read_csv(adopted_csv_path, encoding='euc-kr', low_memory=False)  # 입양된 데이터
-    unadopted_data = pd.read_csv(unadopted_csv_path, encoding='euc-kr', low_memory=False)  # 입양되지 않은 데이터
+    adopted_data = pd.read_csv(adopted_csv_path, encoding='utf-8-sig', low_memory=False)  # 입양된 데이터
+    unadopted_data = pd.read_csv(unadopted_csv_path, encoding='utf-8-sig', low_memory=False)  # 입양되지 않은 데이터
 
     plot_age_histogram(adopted_data, unadopted_data)  # 히스토그램 생성 및 출력
 
