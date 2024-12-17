@@ -50,8 +50,8 @@ Decision Tree는 데이터 기반 의사 결정을 위한 머신러닝 알고리
 
 #### **사용 데이터**
 1. `result_all_data.csv` : **원본 데이터**
-2. `sample_data_decision_tree.csv` (버전 1) : **나이와 체중의 소수점 제거**
-3. `sample_data_decision_tree_version2.csv` (버전 2) : **성별,중성화 여부 미상 데이터 제거**
+2. `adopted_data_for_dt_version1.csv`,'unadopted_data_for_dt_version1.csv' (버전 1) : **나이와 체중의 소수점 제거**
+3. `adopted_data_for_dt_version2.csv`,'unadopted_data_for_dt_version2.csv'  (버전 2) : **성별,중성화 여부 미상 데이터 제거**
 
 
 
