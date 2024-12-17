@@ -2,9 +2,11 @@
 # test_data_decision_version2 파일과 sample_data_decision_version2
 # test_data_decision - N / sample_data_decision - Y (종속변수 항목 확인)
 
-
+import joblib
+import matplotlib.pyplot as plt
+import matplotlib
 import pandas as pd
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeClassifier,plot_tree
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import (
     accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
@@ -29,7 +31,7 @@ if y.dtypes == 'object':  # 종속변수가 문자열인 경우 숫자로 변환
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # 모델 학습
-model = DecisionTreeClassifier(random_state=42)
+model = DecisionTreeClassifier(max_depth=5,random_state=42)
 model.fit(X_train, y_train)
 
 # 예측
@@ -78,3 +80,23 @@ print(f"Error Rate: {error_rate:.2f}")
 print(f"F1 Score: {f1:.2f}")
 print("Feature Importances:")
 print(importance_df)
+
+# 모델 저장
+model_filename = 'decision_tree2_model.pkl'
+joblib.dump(model, model_filename)
+print(f"Model saved as: {model_filename}")
+
+# 시각화
+matplotlib.rcParams['font.family'] = 'Malgun Gothic'  # 윈도우 한글 폰트 설정
+matplotlib.rcParams['axes.unicode_minus'] = False  # 마이너스 기호 깨짐 방지
+
+plt.figure(figsize=(20, 10))  # 시각화 크기 설정
+plot_tree(model,
+          feature_names=independent_columns,
+          class_names=['N', 'Y'],  # 클래스 이름 (종속변수 값)
+          filled=True,
+          rounded=True,
+          fontsize=10)
+plt.title("Decision Tree Visualization")
+plt.savefig("decision_tree2.png", dpi=300, bbox_inches='tight')
+plt.show()
