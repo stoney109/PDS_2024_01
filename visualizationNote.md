@@ -25,7 +25,7 @@
 **목적:** 입양 여부에 따른 성별과 중성화 상태의 분포를 시각화.
 
 **세부 사항:**
-- 일부 잘 못 입력된 데이터 전처리 (  W -> F )
+- 일부 다르게 입력된 데이터 전처리 ( W -> F )
 - 데이터를 `성별`과 `중성화 여부`로 그룹화.
 - 각 조합의 빈도를 표시하는 누적 막대 그래프 생성.
 ![barchart_gender_neutering](https://github.com/user-attachments/assets/b3ee8bc8-b6d0-49cd-a9db-4872feeab2d5)
@@ -67,6 +67,7 @@
 - 각 색상의 빈도를 계산.
 - 원형 차트를 통해 색상의 비율을 시각화.
 - 같은 색상끼리 그래프에서도 동일한 색을 가지도록 설정
+- 상위 10가지의 색상 외에는 other로 설정
 ![piechart_color](https://github.com/user-attachments/assets/009e9a2f-99fc-4b46-9692-361ff0476afc)
 
 
@@ -76,7 +77,7 @@
 **목적:** 텍스트 기반 특징 데이터를 시각화하여 빈도수가 높은 주요 단어를 파악.
 
 **세부 사항:**
-- 특징 데이터를 텍스트 형태로 변환( ChatGpt api 사용으로 텍스트가 긴 일부 데이터만 활용)
+- 특징 데이터를 텍스트 형태로 변환( ChatGpt api 사용 텍스트 전처리를 진행하여, 텍스트가 긴 일부 데이터만 활용)
 - 워드 클라우드를 생성하여 주요 단어(빈도수 10 이상)를 시각화
 ![wordcloud_feature](https://github.com/user-attachments/assets/e8b34aae-aeed-4f8a-aa2a-8e83533d15a1)
 
