@@ -1,5 +1,5 @@
 #다른 방법의 전처리 방식
-#샘플 데이터 (모델을 학습하기 위한 데이터)_apoted_data에서 추출
+#apoted_data에서 추출
 #disition tree를 사용하기 위해서는 x데이터를 수치형 데이터로 전처리
 #disiton tree를 이용하실 때, final_00 컬럼을 사용하시면 됩니다
 '''
@@ -48,4 +48,4 @@ for column in processed_data.columns:
     final_data[f"final_{column}"] = processed_data[column]
 
 #결과 저장
-final_data.to_csv('../../resource/decision_tree_preprocessed_data/sample_data/sample_data_decision_tree_version2.csv', index=False)
+final_data.to_csv('../../resource/decision_tree_preprocessed_data/dt_model_adopted_data/adopted_data_for_dt_version2.csv', index=False)

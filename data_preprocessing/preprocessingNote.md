@@ -18,8 +18,8 @@
    - [8. 특징 데이터 샘플링 및 정렬](#8-특징-데이터-샘플링-및-정렬)  
    - [9. 전처리를 위한 개수 확인 코드](#9-전처리를-위한-개수-확인-코드)  
    - [10. 데이터 병합](#10-데이터-병합)  
-   - [11. 학습 데이터 생성](#11-학습-데이터-생성)  
-   - [12. 테스트 데이터 생성](#12-테스트-데이터-생성)
+   - [11. 입양된 데이터에서 필요한 데이터 전처리](#11-입양된-데이터에서-필요한-데이터-전처리)  
+   - [12. 입양 되지 않은 데이터에서 필요한 데이터 전처리](#12-입양-되지-않은-데이터에서-필요한-데이터-전처리)
 3. ✨ [문서 목적](#-문서-목적)
 
 
@@ -214,21 +214,21 @@
 
 - **설명**: 학습 데이터와 테스트 데이터를 병합하여 분석에 필요한 통합 데이터를 생성.
 - **주요 작업**:
-  - `merge_version1_data.py`: `test_data_decision_tree.csv`와 `sample_data_decision_tree.csv`를 병합.
-  - `merge_version2_data.py`: `test_data_decision_tree_version2.csv`와 `sample_data_decision_tree_version2.csv`를 병합.
+  - `merge_version1_data.py`: `adopted_data_for_dt_version1.csv`와 `unadopted_data_for_dt_version1.csv` 병합.
+  - `merge_version2_data.py`: `adopted_data_for_dt_version2.csv` 와 `unadopted_data_for_dt_version2.csv`를 병합.
 - **출력 파일**:
   - `merged_data_version1.csv`: 버전 1 데이터 병합 결과.
   - `merged_data_version2.csv`: 버전 2 데이터 병합 결과.
 
 ---
 
-### 11. 학습 데이터 생성
+### 11. 입양된 데이터에서 필요한 데이터 전처리
 
-#### `sample_data_for_decision_tree.py` / `sample_data_for_decision_tree_version2.py`
+#### `adopted_data_for_decision_tree_version1.py` / `adopted_data_for_decision_tree_version2.py`
 
 - **설명**: 학습 데이터를 위해 입양된 데이터에서 샘플을 추출하고 전처리.
 - **주요 작업**:
-  - `sample_data_for_decision_tree.py`:
+  - `adopted_data_for_decision_tree_version1.py`:
     - 입양된 데이터에서 10,000건의 샘플을 무작위로 추출.
     - 견종, 나이, 체중, 성별, 중성화 여부를 수치형으로 전처리:
       - 견종: 믹스(0), 기타(1).
@@ -236,7 +236,7 @@
       - 체중: 반올림.
       - 성별: M(0), F(1), Q(2).
       - 중성화 여부: Y(0), N(1), U(2).
-  - `sample_data_for_decision_tree_version2.py`:
+  - `adopted_data_for_decision_tree_version2.py`:
     - 동일한 샘플링 방식으로 데이터 추출.
     - Q 및 U 값을 가진 데이터를 제외.
     - 나이와 체중의 소수 자릿수 유지
@@ -244,18 +244,18 @@
       - 중성화 여부: Y(0), N(1).
       - 나이와 체중: 소수점 첫째 자리까지 유지.
 - **출력 파일**:
-  - `sample_data_decision_tree.csv`: 버전 1 데이터 전처리 결과.
-  - `sample_data_decision_tree_version2.csv`: 버전 2 데이터 전처리 결과.
+  - `adopted_data_for_dt_version1.csv`: 버전 1 데이터 전처리 결과.
+  - `adopted_data_for_dt_version2.csv`: 버전 2 데이터 전처리 결과.
 
 ---
 
-### 12. 테스트 데이터 생성
+### 12. 입양 되지 않은 데이터에서 필요한 데이터 전처리 
 
-#### `test_data_for_decision_tree.py` / `test_data_for_decision_tree_version2.py`
+#### `unadopted_data_for_decision_tree_version1.py` / `unadopted_data_for_decision_tree_version2.py`
 
 - **설명**: 테스트 데이터를 위해 입양되지 않은 데이터에서 샘플을 추출하고 전처리.
 - **주요 작업**:
-  - `test_data_for_decision_tree.py`:
+  - `unadopted_data_for_decision_tree_version1.py`:
     - 입양되지 않은 데이터에서 10,000건의 샘플을 무작위로 추출.
     - 견종, 나이, 체중, 성별, 중성화 여부를 수치형으로 전처리:
       - 견종: 믹스(0), 기타(1).
@@ -263,7 +263,7 @@
       - 체중: 반올림.
       - 성별: M(0), F(1), Q(2).
       - 중성화 여부: Y(0), N(1), U(2).
-  - `test_data_for_decision_tree_version2.py`:
+  - `undopted_data_for_decision_tree_version1.py`:
     - 동일한 샘플링 방식으로 데이터 추출.
     - Q 및 U 값을 가진 데이터를 제외.
     - - 나이와 체중의 소수 자릿수 유지
@@ -271,8 +271,8 @@
       - 중성화 여부: Y(0), N(1).
       - 나이와 체중: 소수점 첫째 자리까지 유지.
 - **출력 파일**:
-  - `test_data_decision_tree.csv`: 버전 1 데이터 전처리 결과.
-  - `test_data_decision_tree_version2.csv`: 버전 2 데이터 전처리 결과
+  - `unadopted_data_for_dt_version1.csv`: 버전 1 데이터 전처리 결과.
+  - `unadopted_data_for_dt_version2.csv`: 버전 2 데이터 전처리 결과
 
 ---
 
