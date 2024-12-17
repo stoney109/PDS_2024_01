@@ -1,4 +1,4 @@
-#샘플 데이터 (모델을 학습하기 위한 데이터)_apoted_data에서 추출
+#apoted_data에서 추출
 #disition tree를 사용하기 위해서는 x데이터를 수치형 데이터로 전처리
 #disiton tree를 이용하실 때, final_00 컬럼을 사용하시면 됩니다
 '''
@@ -16,7 +16,7 @@ import numpy as np
 import random
 
 def preprocess_dog_data(file_path):
-    #랜덤을 1만건의 데이터를 가져오기
+    #랜덤으로 1만건의 데이터를 가져오기
     data = pd.read_csv(file_path)
     data = data.sample(frac=1, random_state=random.randint(1, 10000))
     selected_data = data.head(10000)
@@ -58,7 +58,7 @@ def preprocess_dog_data(file_path):
     return processed_data
 
 file_path = '../../resource/final_adopted_data.csv'
-processed_file_path = '../../resource/decision_tree_preprocessed_data/sample_data/sample_data_decision_tree.csv'
+processed_file_path = '../../resource/decision_tree_preprocessed_data/dt_model_adopted_data/adopted_data_for_dt_version1.csv'
 
 processed_data = preprocess_dog_data(file_path)
 

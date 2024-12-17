@@ -1,4 +1,3 @@
-#모델의 성능을 테스트하기 위한 test_data를 전처리 하는 코드입니다
 #disition tree를 사용하기 위해서는 x데이터를 수치형 데이터로 전처리
 #disiton tree를 이용하실 때, final_00 컬럼을 사용하시면 됩니다
 '''
@@ -54,7 +53,7 @@ def preprocess_dog_data(file_path):
     return processed_data
 
 file_path = '../../resource/final_unadopted_data.csv'
-processed_file_path = '../../resource/decision_tree_preprocessed_data/test_data/test_data_decision_tree.csv'
+processed_file_path = '../../resource/decision_tree_preprocessed_data/dt_model_unadopted_data/unadopted_data_for_dt_version1.csv'
 
 processed_data = preprocess_dog_data(file_path)
 

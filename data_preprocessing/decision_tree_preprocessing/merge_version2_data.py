@@ -1,8 +1,8 @@
 import pandas as pd
 
 # 파일 경로
-file1 = '../../resource/decision_tree_preprocessed_data/test_data/test_data_decision_tree_version2.csv'
-file2 = '../../resource/decision_tree_preprocessed_data/sample_data/sample_data_decision_tree_version2.csv'
+file1 = '../../resource/decision_tree_preprocessed_data/dt_model_adopted_data/adopted_data_for_dt_version2.csv'
+file2 = '../../resource/decision_tree_preprocessed_data/dt_model_unadopted_data/unadopted_data_for_dt_version2.csv'
 
 # CSV 파일 읽기
 df1 = pd.read_csv(file1)
